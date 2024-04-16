@@ -7,7 +7,7 @@ export const routes = [
         page: HomePage
     },
     {
-        path: '/',
+        path: '/login',
         page: LoginPage
     }
 ]
