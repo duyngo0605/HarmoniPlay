@@ -1,30 +1,25 @@
-# HarmoniPlay
- 
-\section{Cài Đặt Packages Cần Thiết}
+# Hướng dẫn cài đặt và chạy chương trình
 
-\subsection{Front-end}
+## Front-end
 
-Chạy lệnh sau để cài đặt Redux Toolkit và React Redux:
+Để cài đặt các gói cần thiết cho phần front-end, bạn hãy chạy lệnh sau:
 
-\begin{verbatim}
+```bash
 npm install @reduxjs/toolkit react-redux
-\end{verbatim}
+```
 
-\subsection{Back-end}
+## Back-end
 
-Chạy lệnh sau để cài đặt các packages cho phần back-end của bạn:
+Để cài đặt các gói cần thiết cho phần back-end, bạn hãy chạy lệnh sau:
 
-\begin{verbatim}
+```bash
 npm install express dotenv bcrypt jsonwebtoken cors mongoose
-\end{verbatim}
+```
 
-\section{Chạy Ứng Dụng}
+## Chạy chương trình
+Chạy lệnh sau ở cả 2 phía front-end và back-end:
 
-Để chạy cả phần front-end và back-end của ứng dụng, bạn có thể sử dụng lệnh sau:
-
-\begin{verbatim}
+```bash
 npm start
-\end{verbatim}
-
-\textbf{Lưu Ý:} Trước khi chạy ứng dụng, đảm bảo rằng bạn đã cấu hình môi trường và các tùy chọn cần thiết cho phần back-end, như cài đặt các biến môi trường trong tệp .env.
-
+```
+# Chú ý: Trước khi chạy chương trình, đảm bảo rằng bạn đã cài đặt Node.js và npm.
