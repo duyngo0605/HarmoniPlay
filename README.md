@@ -22,4 +22,4 @@ Chạy lệnh sau ở cả 2 phía front-end và back-end:
 ```bash
 npm start
 ```
-# Chú ý: Trước khi chạy chương trình, đảm bảo rằng bạn đã cài đặt Node.js và npm.
+### Chú ý: Trước khi chạy chương trình, đảm bảo rằng bạn đã cài đặt Node.js và npm.
