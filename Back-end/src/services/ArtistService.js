@@ -2,7 +2,6 @@ const Artist = require('../models/Artist')
 
 
 const createArtist = async (newArtist) => {
-    console.log('debug')
     return new Promise(async (resolve, reject) => {
 
         const { name, image, country, description } = newArtist
@@ -30,6 +29,8 @@ const createArtist = async (newArtist) => {
 }
 
 const updateArtist = async (artistId, data) => {
+    console.log('update artist')
+    console.log(artistId, data)
     return new Promise(async (resolve, reject) => {
         try {
             const checkArtist = await Artist.findOne({
@@ -42,7 +43,6 @@ const updateArtist = async (artistId, data) => {
                 })
             }
             const updatedArtist = await Artist.findByIdAndUpdate(artistId, data, {new: true})
-            console.log('updateArtist', updatedArtist);
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
