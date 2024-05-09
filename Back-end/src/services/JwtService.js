@@ -18,6 +18,15 @@ const generalRefreshToken = async (payload) => {
     return refresh_token
 }
 
+const decodeAccessToken = async (accessToken) => {
+    try {
+        const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN);
+        return decoded;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 const refreshTokenJwtService = (token) => {
     return new Promise((resolve, reject) => {
         try {
@@ -48,5 +57,6 @@ const refreshTokenJwtService = (token) => {
 module.exports = {
     generalAccessToken,
     generalRefreshToken,
-    refreshTokenJwtService
+    refreshTokenJwtService,
+    decodeAccessToken
 }

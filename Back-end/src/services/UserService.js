@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const { generalAccessToken, generalRefreshToken } = require('./JwtService')
+const { generalAccessToken, generalRefreshToken, decodeAccessToken } = require('./JwtService')
 
 const createUser = async (newUser) => {
     return new Promise(async (resolve, reject) => {
@@ -57,9 +57,6 @@ const loginUser = async (loginModel) => {
                     id: checkUser.id,
                     isAdmin: checkUser.isAdmin
                 })
-
-
-
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
