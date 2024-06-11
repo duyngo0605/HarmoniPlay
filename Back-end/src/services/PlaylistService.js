@@ -161,10 +161,74 @@ const getDetailsPlaylist = async (playlistId) => {
     })
 }
 
+const getAllPlaylist = (limit, page, sort, filter) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const totalPlaylist = await Playlist.count();
+        let allPlaylist = [];
+        if (filter) {
+          const label = filter[0];
+          const allObjectFilter = await Playlist.find({
+            [label]: { $regex: filter[1] },
+          })
+            .limit(limit)
+            .skip(page * limit)
+            .sort({ createdAt: -1, updatedAt: -1 });
+          resolve({
+            status: "OK",
+            message: "Success",
+            data: allObjectFilter,
+            total: totalPlaylist,
+            pageCurrent: Number(page + 1),
+            totalPage: Math.ceil(totalPlaylist / limit),
+          });
+        }
+        if (sort) {
+          const objectSort = {};
+          objectSort[sort[1]] = sort[0];
+          const allPlatlistSort = await Playlist.find()
+            .limit(limit)
+            .skip(page * limit)
+            .sort(objectSort)
+            .sort({ createdAt: -1, updatedAt: -1 });
+          resolve({
+            status: "OK",
+            message: "Success",
+            data: allPlatlistSort,
+            total: totalPlaylist,
+            pageCurrent: Number(page + 1),
+            totalPage: Math.ceil(totalPlaylist / limit),
+          });
+        }
+        if (!limit) {
+          allPlaylist = await Playlist.find().sort({
+            createdAt: -1,
+            updatedAt: -1,
+          });
+        } else {
+            allPlaylist = await Playlist.find()
+            .limit(limit)
+            .skip(page * limit)
+            .sort({ createdAt: -1, updatedAt: -1 });
+        }
+        resolve({
+          status: "OK",
+          message: "Success",
+          data: allPlaylist,
+          total: totalPlaylist,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalPlaylist / limit),
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
 
 module.exports = {
     createPlaylist,
     updatePlaylist,
     deletePlaylist,
-    getDetailsPlaylist
+    getDetailsPlaylist,
+    getAllPlaylist
 }

@@ -104,18 +104,23 @@ const getDetailsArtist = async (req, res) => {
 }
 
 
-const getAllArtist = async (req,res) => {
+const getAllArtist = async (req, res) => {
     try {
-        const response = await ArtistService.getAllArtist()
-        return res.status(200).json(response)
+      const { limit, page, sort, filter } = req.query;
+      const response = await ArtistService.getAllArtist(
+        Number(limit) || null,
+        Number(page) || 0,
+        sort,
+        filter
+      );
+      return res.status(200).json(response);
+    } catch (e) {
+      return res.status(404).json({
+        message: e,
+      });
     }
-    catch (e)
-    {
-        return res.status(404).json({
-            message: e
-        })
-    }
-}
+  };
+
 
 
 module.exports = {

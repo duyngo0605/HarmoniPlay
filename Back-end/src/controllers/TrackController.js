@@ -87,7 +87,7 @@ const getDetailsTrack = async (req,res)=> {
 const getAllTrack = async (req, res) => {
     try {
         const { limit, page, sort, filter } = req.query
-        const response = await ProductService.getAllProduct(Number(limit) || null, Number(page) || 0, sort, filter)
+        const response = await TrackService.getAllTrack(Number(limit) || null, Number(page) || 0, sort, filter)
         return res.status(200).json(response)
     } catch (e) {
         return res.status(404).json({
@@ -116,4 +116,5 @@ module.exports = {
     deleteTrack,
     getDetailsTrack,
     recommendTracks,
+    getAllTrack,
 }

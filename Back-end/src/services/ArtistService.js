@@ -118,20 +118,69 @@ const getDetailsArtist = (id) => {
     })
 }
 
-const getAllArtist = () => {
+const getAllArtist = (limit, page, sort, filter) => {
     return new Promise(async (resolve, reject) => {
-        try {
-            const allArtist = await Artist.find()
-            resolve({
-                status: 'OK',
-                message: 'Success',
-                data: allArtist
-            })
-        } catch (e) {
-            reject(e)
+      try {
+        const totalArtist = await Artist.count();
+        let allArtist = [];
+        if (filter) {
+          const label = filter[0];
+          const allObjectFilter = await Artist.find({
+            [label]: { $regex: filter[1] },
+          })
+            .limit(limit)
+            .skip(page * limit)
+            .sort({ createdAt: -1, updatedAt: -1 });
+          resolve({
+            status: "OK",
+            message: "Success",
+            data: allObjectFilter,
+            total: totalArtist,
+            pageCurrent: Number(page + 1),
+            totalPage: Math.ceil(totalArtist / limit),
+          });
         }
-    })
-}
+        if (sort) {
+          const objectSort = {};
+          objectSort[sort[1]] = sort[0];
+          const allPlatlistSort = await Artist.find()
+            .limit(limit)
+            .skip(page * limit)
+            .sort(objectSort)
+            .sort({ createdAt: -1, updatedAt: -1 });
+          resolve({
+            status: "OK",
+            message: "Success",
+            data: allPlatlistSort,
+            total: totalArtist,
+            pageCurrent: Number(page + 1),
+            totalPage: Math.ceil(totalArtist / limit),
+          });
+        }
+        if (!limit) {
+          allArtist = await Artist.find().sort({
+            createdAt: -1,
+            updatedAt: -1,
+          });
+        } else {
+            allArtist = await Artist.find()
+            .limit(limit)
+            .skip(page * limit)
+            .sort({ createdAt: -1, updatedAt: -1 });
+        }
+        resolve({
+          status: "OK",
+          message: "Success",
+          data: allArtist,
+          total: totalArtist,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalArtist / limit),
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
 
 
 

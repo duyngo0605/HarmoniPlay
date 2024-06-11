@@ -7,6 +7,7 @@ router.post('/create', PlaylistController.createPlaylist)
 router.post('/update/:id', PlaylistController.updatePlaylist)
 router.delete('/delete/:id', PlaylistController.deletePlaylist)
 router.get('/get-details/:id', PlaylistController.getDetailsPlaylist)
+router.get('/get-all', PlaylistController.getAllPlaylist)
 
 
 
