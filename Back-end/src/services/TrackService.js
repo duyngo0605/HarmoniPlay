@@ -1,6 +1,6 @@
 const Track = require("../models/Track")
 const Artist = require("../models/Artist")
-const Genre = require("../models/Genre")
+const Genre = require("../models/Genre");
 
 const createTrack = async (newTrack) => {
     return new Promise(async (resolve, reject) => {
@@ -176,10 +176,77 @@ const getDetailsTrack = async (trackId) => {
     })
 }
 
+const getAllTrack = (limit, page, sort, filter) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+
+        const totalTrack = await Track.countDocuments();
+        let allTrack = [];
+
+        if (filter) {
+          const label = filter[0];
+          const allObjectFilter = await Track.find({
+            [label]: { $regex: filter[1] },
+          })
+            .limit(limit)
+            .skip(page * limit)
+            .sort({ createdAt: -1, updatedAt: -1 });
+          resolve({
+            status: "OK",
+            message: "Success",
+            data: allObjectFilter,
+            total: totalTrack,
+            pageCurrent: Number(page + 1),
+            totalPage: Math.ceil(totalTrack / limit),
+          });
+        }
+        if (sort) {
+          const objectSort = {};
+          objectSort[sort[1]] = sort[0];
+          const allPlatlistSort = await Track.find()
+            .limit(limit)
+            .skip(page * limit)
+            .sort(objectSort)
+            .sort({ createdAt: -1, updatedAt: -1 });
+          resolve({
+            status: "OK",
+            message: "Success",
+            data: allPlatlistSort,
+            total: totalTrack,
+            pageCurrent: Number(page + 1),
+            totalPage: Math.ceil(totalTrack / limit),
+          });
+        }
+        if (!limit) {
+          allTrack = await Track.find().sort({
+            createdAt: -1,
+            updatedAt: -1,
+          });
+        } else {
+
+            allTrack = await Track.find()
+            .limit(limit)
+            .skip(page * limit)
+            .sort({ createdAt: -1, updatedAt: -1 });
+        }
+        resolve({
+          status: "OK",
+          message: "Success",
+          data: allTrack,
+          total: totalTrack,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalTrack / limit),
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
 
 module.exports = {
     createTrack,
     updateTrack,
     deleteTrack,
-    getDetailsTrack
+    getDetailsTrack,
+    getAllTrack
 }
