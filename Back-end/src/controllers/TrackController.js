@@ -1,4 +1,5 @@
 const TrackService = require('../services/TrackService')
+const RecommendService = require('../services/RecommendService')
 
 const createTrack = async (req, res) => {
     try {
@@ -95,9 +96,24 @@ const getAllTrack = async (req, res) => {
     }
 }
 
+const recommendTracks = async (req,res) => {
+    try {
+        const trackId=req.params.id;
+        const response = await RecommendService.recommendTracks(trackId);
+        return res.status(200).json(response);
+    }
+    catch (e)
+    {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
 module.exports = {
     createTrack,
     updateTrack,
     deleteTrack,
     getDetailsTrack,
+    recommendTracks,
 }

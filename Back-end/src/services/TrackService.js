@@ -1,7 +1,6 @@
 const Track = require("../models/Track")
 const Artist = require("../models/Artist")
 const Genre = require("../models/Genre")
-const ArtistService = require('../services/ArtistService')
 
 const createTrack = async (newTrack) => {
     return new Promise(async (resolve, reject) => {
