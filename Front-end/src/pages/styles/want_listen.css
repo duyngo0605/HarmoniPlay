@@ -1,0 +1,37 @@
+.want-to-listen {
+  color: white;
+}
+
+.all-item-want-to-listen {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item_quare-big,
+.item_quare p {
+  max-width: 212px;
+}
+
+.div_img-big,
+.want-to-listen .div_icon--in--img,
+.want-to-listen a img {
+  width: 212px;
+}
+
+.item_quare p {
+  margin: 10px 0px 0;
+}
+
+.singer-name {
+  color: rgb(165, 160, 155);
+  font-size: 14px;
+}
+
+.want-to-listen p:hover,
+.singer-name:hover {
+  color: blueviolet;
+}
+
+.singer-name:hover {
+  text-decoration: underline;
+}

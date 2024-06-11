@@ -1,0 +1,103 @@
+.header {
+  width: 1288px;
+  height: 70px;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+.control_header {
+  max-width: 1170px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header_left {
+  display: flex;
+  align-items: center;
+  width: 870px;
+}
+
+.back_left,
+.back_right {
+  font-size: 24px;
+  margin: 7px;
+  margin-top: 8px;
+}
+
+.search_button {
+  display: flex;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.05);
+  align-items: center;
+  width: 440px;
+}
+
+.search_icon {
+  padding: 4px;
+  padding-left: 7px;
+  color: rgba(0, 0, 0, 1);
+  font-size: 24px;
+  margin-top: 4px;
+}
+
+.input_ {
+  height: 100%;
+}
+
+.input_ input {
+  width: 372px;
+  padding: 7px 7px;
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+  border: unset;
+}
+
+.input_ input:focus {
+  outline: unset;
+  border: unset;
+}
+
+.header_right {
+  display: flex;
+}
+
+.sign_in_btn {
+  color: purple;
+  border: 1px solid purple;
+  padding: 5px 18px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.sign_up_btn {
+  color: white;
+  background-color: purple;
+  padding: 5px 18px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin: auto 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  padding-top: 4px;
+}
+
+.setting_icon {
+  font-size: 24px;
+}
