@@ -164,7 +164,7 @@ const getDetailsPlaylist = async (playlistId) => {
 const getAllPlaylist = (limit, page, sort, filter) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const totalPlaylist = await Playlist.count();
+        const totalPlaylist = await Playlist.countDocuments();
         let allPlaylist = [];
         if (filter) {
           const label = filter[0];

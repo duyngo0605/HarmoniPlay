@@ -121,7 +121,7 @@ const getDetailsArtist = (id) => {
 const getAllArtist = (limit, page, sort, filter) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const totalArtist = await Artist.count();
+        const totalArtist = await Artist.countDocuments();
         let allArtist = [];
         if (filter) {
           const label = filter[0];
