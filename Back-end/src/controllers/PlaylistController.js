@@ -78,9 +78,27 @@ const getDetailsPlaylist = async (req, res) => {
     }
 }
 
+const getAllPlaylist = async (req, res) => {
+    try {
+      const { limit, page, sort, filter } = req.query;
+      const response = await PlaylistService.getAllPlaylist(
+        Number(limit) || null,
+        Number(page) || 0,
+        sort,
+        filter
+      );
+      return res.status(200).json(response);
+    } catch (e) {
+      return res.status(404).json({
+        message: e,
+      });
+    }
+  };
+
 module.exports = {
     createPlaylist,
     updatePlaylist,
     deletePlaylist,
-    getDetailsPlaylist
+    getDetailsPlaylist,
+    getAllPlaylist
 }
