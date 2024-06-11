@@ -2,20 +2,21 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const routes = require('./routes')
-
+const routes = require("./routes");
+const cors = require("cors");
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5001;
 
-app.use(bodyParser.json())
+app.use(cors());
+app.use(bodyParser.json());
 
 routes(app);
 
-app.get('/', (req,res) => {
-    res.send('Hello World')
-})
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 mongoose
   .connect(`${process.env.MONGO_DB}`)

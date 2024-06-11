@@ -1,0 +1,194 @@
+* {
+  transition: all 0.2s ease-in-out !important;
+}
+
+a {
+  color: black;
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+
+nav {
+  width: 240px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: azure;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  font-size: 14px;
+}
+
+.app_logo {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  height: 70px;
+}
+
+.app_logo .logo {
+  width: 200px;
+  margin-left: 20px;
+}
+
+.select_navbar {
+  position: relative;
+}
+.select_navbar a:hover {
+  color: purple;
+}
+
+.select_navbar a li {
+  height: 48px;
+  padding-left: 20px;
+}
+
+.select_navbar a:nth-child(1) li {
+  border-left: 2px solid rgb(238, 0, 255);
+  color: purple;
+}
+
+.select_navbar a li span,
+.item_scroll a li span,
+.navbar_item a li span {
+  margin-left: 10px;
+  min-width: 150px;
+
+  display: flex;
+  align-items: center;
+}
+
+a li ion-icon {
+  display: none;
+  font-size: 22px;
+}
+
+#navbar a:hover ion-icon {
+  display: flex;
+  color: purple;
+}
+
+.navbar_scroll {
+  margin-top: 15px;
+  height: 360px;
+  border-top: 1px solid #ccc;
+  overflow-y: scroll;
+
+  position: relative;
+}
+
+.navbar_scroll::-webkit-scrollbar {
+  width: 0px;
+  /* color: #fb0707; */
+}
+.item_scroll {
+  margin: 20px auto;
+}
+
+.item_scroll a:hover {
+  color: purple;
+}
+.item_scroll a li {
+  height: 48px;
+  padding-left: 20px;
+}
+
+.item_scroll a li span {
+  padding-left: 10px;
+}
+
+.advertise {
+  width: 200px;
+  min-height: 109px;
+  margin: auto;
+  background-color: purple;
+  border-radius: 7px;
+  padding: 15px 8px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.advertise span,
+.advertise a {
+  font-weight: bold;
+  font-size: 13px;
+  text-align: center;
+}
+
+.advertise span {
+  color: white;
+  margin-bottom: 10px;
+  line-height: 20px;
+}
+
+.advertise a {
+  color: rgb(255, 255, 255);
+  display: inline-block;
+  margin: 0;
+  padding: 5px 5px;
+
+  border: 1px solid white;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar_item {
+  margin: 20px auto;
+  color: rgb(152, 152, 152);
+  display: block;
+}
+
+.navbar_item li:hover {
+  color: purple;
+  cursor: pointer;
+}
+
+.navbar_item li {
+  height: 48px;
+  padding-left: 20px;
+}
+
+.navbar_item li span {
+  margin-left: 10px;
+}
+
+.navbar_item li:nth-child(2) ion-icon {
+  color: rgb(255, 0, 255);
+  display: none;
+  margin-left: 35px;
+  font-size: 22px;
+}
+
+.navbar_item li:nth-child(2):hover ion-icon {
+  display: flex;
+}
+
+.navbar_add--playlist {
+  height: 54px;
+  width: 240px;
+  border-top: 1px solid #ccc;
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.navbar_add--playlist a {
+  display: flex;
+  align-items: center;
+}
+.navbar_add--playlist span {
+  margin-left: 10px;
+}
