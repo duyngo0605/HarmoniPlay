@@ -40,7 +40,7 @@ const loginUser = async (loginModel) => {
 
             if (!checkUser){
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined.'
                 })
             }
@@ -67,7 +67,7 @@ const loginUser = async (loginModel) => {
             else
             {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The password is not correct.'
                 })
             }
@@ -89,7 +89,7 @@ const updateUser = async (userId, data) => {
             })
             if (!checkUser){
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined.'
                 })
             }

@@ -7,7 +7,7 @@ const PlaylistRouter = require("./PlaylistRouter");
 const routes = (app) => {
   app.use("/api/user", UserRouter);
   app.use("/api/artist", ArtistRouter);
-  app.use("/api/genrec", GenreRouter);
+  app.use("/api/genre", GenreRouter);
   app.use("/api/track", TrackRouter);
   app.use("/api/playlist", PlaylistRouter);
 };

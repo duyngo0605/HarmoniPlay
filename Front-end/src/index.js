@@ -7,8 +7,9 @@ import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient();
-ReactDOM.render(
+root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <App />
@@ -16,5 +17,4 @@ ReactDOM.render(
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>,
 
-  document.getElementById("root")
 );
