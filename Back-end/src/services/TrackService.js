@@ -150,7 +150,7 @@ const getDetailsTrack = async (trackId) => {
 
         try {
 
-            const checkTrack = await Track.findById(trackId)
+            const checkTrack = await Track.findById(trackId).populate([{path: 'genre'}, {path: 'artist'}])
             if (!checkTrack)
             {
                 resolve({
@@ -187,7 +187,7 @@ const getAllTrack = (limit, page, sort, filter) => {
           const label = filter[0];
           const allObjectFilter = await Track.find({
             [label]: { $regex: filter[1] },
-          })
+          }).populate([{path: 'genre'}, {path: 'artist'}])
             .limit(limit)
             .skip(page * limit)
             .sort({ createdAt: -1, updatedAt: -1 });
@@ -207,7 +207,7 @@ const getAllTrack = (limit, page, sort, filter) => {
             .limit(limit)
             .skip(page * limit)
             .sort(objectSort)
-            .sort({ createdAt: -1, updatedAt: -1 });
+            .sort({ createdAt: -1, updatedAt: -1 }).populate([{path: 'genre'}, {path: 'artist'}]);
           resolve({
             status: "OK",
             message: "Success",
@@ -221,13 +221,13 @@ const getAllTrack = (limit, page, sort, filter) => {
           allTrack = await Track.find().sort({
             createdAt: -1,
             updatedAt: -1,
-          });
+          }).populate([{path: 'genre'}, {path: 'artist'}]);
         } else {
 
             allTrack = await Track.find()
             .limit(limit)
             .skip(page * limit)
-            .sort({ createdAt: -1, updatedAt: -1 });
+            .sort({ createdAt: -1, updatedAt: -1 }).populate([{path: 'genre'}, {path: 'artist'}]);
         }
         resolve({
           status: "OK",

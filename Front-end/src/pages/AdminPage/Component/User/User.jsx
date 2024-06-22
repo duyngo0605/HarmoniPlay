@@ -5,7 +5,7 @@ import * as UserService from "../../../../services/UserService"
 import { Modal, Table } from "antd";
 import { Upload } from "antd";
 
-import styles from "./User.module.scss"
+import styles from "../Component.module.scss"
 
 const cx= classNames.bind(styles)
 
@@ -14,9 +14,9 @@ const User = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "_id",
-      render: (text) => <p style={{ fontWeight: "550" }}>{text}</p>,
+      title: "Avatar",
+      dataIndex: "profile",
+      render: (text) => <img className={cx("item-image")} src={text ? text.avatar : ""}/>,
     },
     {
       title: "Username",
@@ -35,10 +35,6 @@ const User = () => {
       ),
     },
 
-    {
-      title: "Profile",
-      dataIndex: "profile",
-    },
 
     {
       title: "Action",
@@ -53,7 +49,9 @@ const User = () => {
 
   const fetchUserAll = async () => {
     try {
-      const res = await UserService.getAllUser();
+      const token = JSON.parse(localStorage.getItem("access_token"))
+      const res = await UserService.getAllUser(token);
+
       console.log("Data fetched all product:", res);
       return res;
     } catch (error) {
@@ -65,6 +63,7 @@ const User = () => {
       try {
         const result = await fetchUserAll();
         setData(result.data);
+
       } catch (error) {
         console.log("error", error);
       }

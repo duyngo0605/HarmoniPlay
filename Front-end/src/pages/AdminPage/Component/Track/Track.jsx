@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import * as GenreService from "../../../../services/GenreService"
+import * as TrackService from "../../../../services/TrackService"
 
 import { Modal, Table } from "antd";
 import { Upload } from "antd";
@@ -9,15 +9,53 @@ import styles from "../Component.module.scss"
 
 const cx= classNames.bind(styles)
 
-const Genre = () => {
+const Track = () => {
   const [Data, setData] = useState([]);
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: "Image",
+      dataIndex: "image",
+      render: (text) => <img className={cx("item-image")} src={text}/>,
+    },
+    {
+      title: "Title",
+      dataIndex: "title",
       render: (text) => <p style={{ fontWeight: "550" }}>{text}</p>,
     },
+
+    {
+      title: "Artist",
+      dataIndex: "artist",
+      witdh: "10vw",
+      render: (artists) => <div>
+      {artists.map((item, index) => (
+        <div
+          key={index}
+        >
+        <p style={{ fontWeight: "550" }}>{item.name}</p>
+        <br/>
+          
+        </div>
+      ))}
+    </div>
+    },
+    {
+      title: "Genre",
+      dataIndex: "genre",
+      render: (genres) => <div>
+      {genres.map((item, index) => (
+        <div
+          key={index}
+        >
+        <p style={{ fontWeight: "550" }}>{item.name}</p>
+        <br/>
+          
+        </div>
+      ))}
+    </div>
+    },
+
 
     {
       title: "Action",
@@ -30,9 +68,9 @@ const Genre = () => {
     },
   ];
 
-  const fetchGenreAll = async () => {
+  const fetchTrackAll = async () => {
     try {
-      const res = await GenreService.getAllGenre();
+      const res = await TrackService.getAllTrack();
       console.log("Data fetched all product:", res);
       return res;
     } catch (error) {
@@ -42,7 +80,7 @@ const Genre = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchGenreAll();
+        const result = await fetchTrackAll();
         setData(result.data);
       } catch (error) {
         console.log("error", error);
@@ -55,12 +93,13 @@ const Genre = () => {
 
   return (
     <div className={cx("container")}>
-      <p>Quản lí Genre</p>
+      <p>Quản lí Track</p>
       <div class={cx("content")}>
-        <Table columns={columns} dataSource={Data} />
+        <Table columns={columns} 
+        dataSource={Data} />
       </div>
     </div>
   );
 };
 
-export default Genre;
+export default Track;

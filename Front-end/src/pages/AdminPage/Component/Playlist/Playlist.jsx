@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import * as GenreService from "../../../../services/GenreService"
+import * as PlaylistService from "../../../../services/PlaylistService"
 
 import { Modal, Table } from "antd";
 import { Upload } from "antd";
@@ -9,14 +9,19 @@ import styles from "../Component.module.scss"
 
 const cx= classNames.bind(styles)
 
-const Genre = () => {
+const Playlist = () => {
   const [Data, setData] = useState([]);
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: "Title",
+      dataIndex: "title",
       render: (text) => <p style={{ fontWeight: "550" }}>{text}</p>,
+    },
+    {
+      title: "Creator",
+      dataIndex: "creator",
+      render: (text) => <p style={{ fontWeight: "550" }}>{text.username}</p>,
     },
 
     {
@@ -30,9 +35,9 @@ const Genre = () => {
     },
   ];
 
-  const fetchGenreAll = async () => {
+  const fetchPlaylistAll = async () => {
     try {
-      const res = await GenreService.getAllGenre();
+      const res = await PlaylistService.getAllPlaylist();
       console.log("Data fetched all product:", res);
       return res;
     } catch (error) {
@@ -42,7 +47,7 @@ const Genre = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchGenreAll();
+        const result = await fetchPlaylistAll();
         setData(result.data);
       } catch (error) {
         console.log("error", error);
@@ -55,7 +60,7 @@ const Genre = () => {
 
   return (
     <div className={cx("container")}>
-      <p>Quản lí Genre</p>
+      <p>Quản lí Playlist</p>
       <div class={cx("content")}>
         <Table columns={columns} dataSource={Data} />
       </div>
@@ -63,4 +68,4 @@ const Genre = () => {
   );
 };
 
-export default Genre;
+export default Playlist;

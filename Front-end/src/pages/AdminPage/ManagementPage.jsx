@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import User from "./Component/User/User";
 import Genre from "./Component/Genre/Genre";
+import Artist from "./Component/Artist/Artist";
+import Track from "./Component/Track/Track";
+import Playlist from "./Component/Playlist/Playlist";
 
 import styles from "./Admin.module.scss";
 import classNames from "classnames/bind";
@@ -53,13 +56,13 @@ const ManagementPage = () => {
       case "user":
         return <User/>;
       case "track":
-        return <div>Track</div>
+        return <Track/>
       case "artist":
-        return <div>Artist</div>;
+        return <Artist/>
       case "genre":
         return <Genre/>;
       case "playlist":
-        return <div>Playlist</div>;
+        return <Playlist/>;
       default:
         return <div>Default</div>;
     }

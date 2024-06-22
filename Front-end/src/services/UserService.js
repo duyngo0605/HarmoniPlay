@@ -53,7 +53,6 @@ export const getDetailsUser = async (id, access_token) => {
           token: access_token,
         },
       }
-      
     );
     return res.data;
   };
