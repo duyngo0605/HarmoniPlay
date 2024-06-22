@@ -23,10 +23,9 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const handleChangeUsername = (event) => {
-    // Kiểm tra tính hợp lệ của input và cập nhật isValid
     const inputValue = event.target.value;
     const isValidInput =
-      inputValue.length > 1; /* Điều kiện kiểm tra tính hợp lệ */
+      inputValue.length > 1;
     setIsValidUsername(isValidInput)
     setUsername(event.target.value);
   };
@@ -93,8 +92,8 @@ const LoginPage = () => {
     }
   };
 
-  const handleRegister = () => {
-    navigate("/register");
+  const handleSignUp = () => {
+    navigate("/signup");
   };
 
   return (
@@ -127,7 +126,7 @@ const LoginPage = () => {
 
           <div className="register-link">
             <p>
-              Chưa có tài khoản? <a href="#" onClick={handleRegister}>Đăng kí</a>
+              Chưa có tài khoản? <a href="" onClick={handleSignUp}>Đăng kí</a>
             </p>
           </div>
       </div>

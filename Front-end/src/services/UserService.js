@@ -7,7 +7,6 @@ export const loginUser = async (data) => {
     `${process.env.REACT_APP_API_KEY}/user/sign-in`,
     data
   );
-  alert('data', data)
   return res.data;
 };
 

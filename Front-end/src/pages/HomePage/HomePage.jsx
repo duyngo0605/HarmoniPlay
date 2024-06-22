@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../Header/Header";
+import Navbar from "../Navbar/Navbar";
 import "../styles/main.css";
 import "../styles/banner.css";
 import "../styles/recently.css";
@@ -7,6 +8,7 @@ import "../styles/want_listen.css";
 import "../styles/mph.css";
 import { IonIcon } from "@ionic/react";
 import { chevronBackOutline, chevronForwardOutline } from "ionicons/icons";
+
 
 import banner1 from "../assest/banner1.jpg";
 import banner2 from "../assest/banner2.jpg";
@@ -16,6 +18,7 @@ import "../HomePage/HomePage";
 const HomePage = () => {
   return (
     <main>
+      <Navbar/>
       <Header />
       <div id="main_scroll">
         <div class="banner">

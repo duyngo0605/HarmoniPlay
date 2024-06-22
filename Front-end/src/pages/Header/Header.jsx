@@ -8,7 +8,20 @@ import {
   settingsOutline,
 } from "ionicons/icons";
 
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  const handleSignUp = () => {
+    navigate("/signup");
+  };
+
   return (
     <div class="header">
       <div class="control_header">
@@ -36,10 +49,10 @@ const Header = () => {
         </div>
 
         <div class="header_right">
-          <a class="sign_in_btn" href="">
+          <a class="sign_in_btn" onClick={handleLogin} href="">
             Đăng nhập
           </a>
-          <a class="sign_up_btn" href="">
+          <a class="sign_up_btn" onClick={handleSignUp} href="">
             Đăng kí
           </a>
 
