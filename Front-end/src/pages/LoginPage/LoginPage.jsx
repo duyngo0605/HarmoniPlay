@@ -51,7 +51,10 @@ const LoginPage = () => {
         }, 1000);
       } else {
         alert("Đăng nhập thành công");
-        navigate("/");
+        if (username === "admin")
+          navigate("/admin");
+        else 
+          navigate("/");
       }
       localStorage.setItem(
         "access_token",
@@ -78,8 +81,9 @@ const LoginPage = () => {
     const storage = localStorage.getItem("refresh_token");
     const refreshToken = JSON.parse(storage);
     const res = await UserService.getDetailsUser(id, token);
-    dispatch(updateUser({ ...res?.data, access_token: token, refreshToken }));
-    console.log("res", res);
+
+    dispatch(updateUser({ ...res?.data, access_token: token, refresh_token: refreshToken }));
+    console.log(res.data)
   };
 
   const handleLogin = () => {

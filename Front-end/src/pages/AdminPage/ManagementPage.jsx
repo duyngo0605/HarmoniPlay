@@ -64,7 +64,7 @@ const ManagementPage = () => {
       case "playlist":
         return <Playlist/>;
       default:
-        return <div>Default</div>;
+        return <User/>;
     }
   };
 

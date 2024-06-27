@@ -5,8 +5,20 @@ const { generalAccessToken, generalRefreshToken, decodeAccessToken } = require('
 const createUser = async (newUser) => {
     return new Promise(async (resolve, reject) => {
 
-        const { username, email, password, confirmPassword } = newUser
+        const { username, email, password } = newUser
+
         try {
+            const checkUser = await User.findOne({
+                username: username
+            })
+    
+            if (checkUser){
+                resolve({
+                    status: 'ERR',
+                    message: 'The user was existed.'
+                })
+            }
+
             const hash = bcrypt.hashSync(password, 10);
             const createdUser = await User.create({
                 username,

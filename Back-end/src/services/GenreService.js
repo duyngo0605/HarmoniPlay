@@ -90,10 +90,34 @@ const getAllGenre = () => {
     })
 }
 
+const getDetailsGenre = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const genre = await Genre.findById(id)
+
+            if (!genre)
+            {
+                resolve({
+                    status: 'ERR',
+                    message: 'Genre not defined'
+                })
+            }
+            
+            resolve({
+                status: 'OK',
+                message: 'Success',
+                data: genre
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
 
 module.exports = {
     createGenre,
     updateGenre,
     deleteGenre,
-    getAllGenre
+    getAllGenre,
+    getDetailsGenre
 }

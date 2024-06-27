@@ -3,11 +3,11 @@ const RecommendService = require('../services/RecommendService')
 
 const createTrack = async (req, res) => {
     try {
-        const { title, artistIds, link, image, genreIds, releaseDate, duration } = req.body;
+        const { title, artist, link, image, genre, releaseDate, duration } = req.body;
 
-        if (!title || !artistIds || !link || !image || !genreIds || !releaseDate || !duration) {
-            return res.status(400).json({ message: 'All fields are required.' });
-        }
+        console.log(req.body)
+
+
 
         const response = await TrackService.createTrack(req.body);
         return res.status(200).json(response)

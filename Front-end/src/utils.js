@@ -19,6 +19,25 @@ export function getItem(label, key, icon, children, type) {
   };
 }
 
+export async function getAllCountries() {
+  const url = "https://restcountries.com/v3.1/all";
+  
+  try {
+      const response = await fetch(url);
+      if (response.ok) {
+          const countriesData = await response.json();
+          const countriesList = countriesData.map(country => country.name.common);
+          return countriesList;
+      } else {
+          console.error('HTTP error', response.status);
+          return [];
+      }
+  } catch (error) {
+      console.error('Fetch error:', error);
+      return [];
+  }
+}
+
 export const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -79,16 +98,3 @@ export const initFacebookSDK = () => {
     fjs.parentNode.insertBefore(js, fjs);
   })(document, "script", "facebook-jssdk");
 };
-
-
-//**************** new change ****************
-// const request = axios.create({
-//     baseURL: 'https://tiktok.fullstack.edu.vn/api/',
-// });
-
-// export const get = async (path, options = {}) => {
-//     const response = await request.get(path, options);
-//     return response.data;
-// }
-
-// export default request;

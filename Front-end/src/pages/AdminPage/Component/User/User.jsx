@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
+import { IonIcon } from "@ionic/react";
+import { trashBinOutline, addOutline } from "ionicons/icons";
 import * as UserService from "../../../../services/UserService"
+import { useMutationHook } from "../../../../hooks/useMutationHook";
+import useSelection from "antd/es/table/hooks/useSelection";
 
 import { Modal, Table } from "antd";
 import { Upload } from "antd";
@@ -11,6 +15,35 @@ const cx= classNames.bind(styles)
 
 const User = () => {
   const [Data, setData] = useState([]);
+
+  const token = JSON.parse(localStorage.getItem("access_token"))
+
+  const mutationDelete = useMutationHook((data) => {
+    const { id, token } = data;
+    const res = UserService.deleteUser(id, token);
+    return res;
+  });
+
+  const { data: dataDeleted, isLoading: isLoadingDeleted } = mutationDelete;
+
+  const handleDeleteUser = (record) => {
+    if (window.confirm("Bạn có muốn xoá thể loại này không?")) {
+
+      mutationDelete.mutate({
+        id: record._id,
+        token: token,
+      });
+
+    }
+  };
+
+  useEffect(() => {
+    if (dataDeleted?.status === "OK") {
+      alert("Xóa thành công");
+      window.location.reload();
+    }
+  }, [dataDeleted]);
+
 
   const columns = [
     {
@@ -41,7 +74,16 @@ const User = () => {
       render: (text, record) => (
         <div>
           <div className={cx("AiIcons")} color="red" />
-          <div className={cx("AiIcons")} color="#F0E68C" />
+          <div>
+           <IonIcon icon={trashBinOutline}
+            className={cx("AiIcons")}
+            color="red"
+            onClick={() => {
+              handleDeleteUser(record);
+            }}
+          >Delete</IonIcon>
+         
+        </div>
         </div>
       ),
     },
@@ -49,7 +91,7 @@ const User = () => {
 
   const fetchUserAll = async () => {
     try {
-      const token = JSON.parse(localStorage.getItem("access_token"))
+
       const res = await UserService.getAllUser(token);
 
       console.log("Data fetched all product:", res);

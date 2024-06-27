@@ -24,20 +24,19 @@ export const getDetailsUser = async (id, access_token) => {
       `${process.env.REACT_APP_API_KEY}/user/get-details/${id}`,
       {
         headers: {
-          token: `${access_token}`,
+          token: access_token,
         },
       }
     );
     return res.data;
   };
 
-  export const deleteUser = async (id, access_token, data) => {
+  export const deleteUser = async (id, access_token) => {
     const res = await axiosJWT.delete(
-      `${process.env.REACT_APP_API_KEY}/user/delete-user/${id}`,
-      data,
+      `${process.env.REACT_APP_API_KEY}/user/delete/${id}`,
       {
         headers: {
-          token: `${access_token}`,
+          token: access_token,
         },
       }
     );
@@ -79,7 +78,7 @@ export const refreshToken = async () => {
       data,
       {
         headers: {
-          token: `${access_token}`,
+          token: access_token,
         },
       }
     );

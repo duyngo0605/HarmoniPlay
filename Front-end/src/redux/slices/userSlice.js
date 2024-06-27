@@ -6,7 +6,7 @@ const initialState = {
   access_token: "",
   id: "",
   isAdmin: false,
-  refreshToken: "",
+  refresh_token: "",
   profile: {
     fullname: "",
     avatar: ""
@@ -29,7 +29,7 @@ export const userSlice = createSlice({
         access_token = "",
         _id = "",
         isAdmin = false,
-        refreshToken = "",
+        refresh_token = "",
         profile = {
           fullname: "",
           avatar: ""
@@ -48,7 +48,7 @@ export const userSlice = createSlice({
       state.profile = profile ? profile : state.profile;
       state.isAdmin = isAdmin ? isAdmin : state.isAdmin;
       state.favorites = favorites ? favorites : state.city;
-      state.refreshToken = refreshToken ? refreshToken : state.refreshToken;
+      state.refresh_token = refresh_token ? refresh_token : state.refreshToken;
     },
     resetUser: (state) => {
       state.username = "";
@@ -58,7 +58,7 @@ export const userSlice = createSlice({
       state.access_token = "";
       state.isAdmin = false;
       state.city = "";
-      state.refreshToken = "";
+      state.refresh_token = "";
     },
   },
 });

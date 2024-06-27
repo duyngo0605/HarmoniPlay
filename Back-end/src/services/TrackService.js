@@ -7,18 +7,18 @@ const createTrack = async (newTrack) => {
 
         try {
 
-            const { title, artistIds, link, image, genreIds, releaseDate, duration } = newTrack;
+            const { title, artist, link, image, genre, releaseDate, duration } = newTrack;
 
-            const artists = await Artist.find({_id: {$in: artistIds}})
-            if (artists.length !== artistIds.length) {
+            const artists = await Artist.find({_id: {$in: artist}})
+            if (artists.length !== artist.length) {
                 resolve({
                     status: 'ERR',
                     message: 'One ore more artists not found'
                 })
             }
- 
-            const genres = await Genre.find({ _id: { $in: genreIds } });
-            if (genres.length !== genreIds.length) {
+            
+            const genres = await Genre.find({ _id: { $in: genre } });
+            if (genres.length !== genre.length) {
                 resolve({
                     status: 'ERR',
                     message: 'One ore more genres not found'
@@ -27,10 +27,10 @@ const createTrack = async (newTrack) => {
     
             const createdTrack = await Track.create({
                 title,
-                artist: artistIds,
+                artist: artist,
                 link,
                 image,
-                genre: genreIds,
+                genre: genre,
                 releaseDate,
                 duration
             });
@@ -73,10 +73,10 @@ const updateTrack = async (trackId, data) => {
 
  
 
-            if (data.artistIds)
+            if (data.artist)
             {
                 const lastArtists = await Artist.find({_id: {$in: checkTrack.artist}})
-                const currArtists = await Artist.find({_id: {$in: data.artistIds}})
+                const currArtists = await Artist.find({_id: {$in: data.artist}})
                 lastArtists.forEach(async (artist) => {
                     artist.tracks.pull(trackId)
                     await artist.save()
@@ -89,8 +89,8 @@ const updateTrack = async (trackId, data) => {
             
             const updatedTrack = await Track.findByIdAndUpdate(trackId, {
                 ...data,
-                artist: data.artistIds,
-                genre: data.genreIds,
+                artist: data.artist,
+                genre: data.genre,
             }, {new: true})
             console.log(data)
 

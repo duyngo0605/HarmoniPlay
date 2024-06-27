@@ -3,6 +3,7 @@ const ArtistRouter = require("./ArtistRouter");
 const GenreRouter = require("./GenreRouter");
 const TrackRouter = require("./TrackRouter");
 const PlaylistRouter = require("./PlaylistRouter");
+const UploadRouter = require("./UploadRouter")
 
 const routes = (app) => {
   app.use("/api/user", UserRouter);

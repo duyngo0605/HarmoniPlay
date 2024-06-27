@@ -3,14 +3,13 @@ const Artist = require('../models/Artist')
 
 const createArtist = async (newArtist) => {
     return new Promise(async (resolve, reject) => {
-
         const { name, image, country, description } = newArtist
         try {
             const createdArtist = await Artist.create({
-                name,
-                image,
-                country,
-                description
+                name: name,
+                image: image,
+                country: country,
+                description: description
             })
             if (createdArtist)
             { 

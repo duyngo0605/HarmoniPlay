@@ -2,10 +2,12 @@ const ArtistService = require('../services/ArtistService')
 
 const createArtist = async (req,res) => {
     try {
+
         const {name, image, country, description} = req.body
+        console.log( {name, image, country, description})
         if (!name || !image || !country || !description)
         {
-            return res.status(200).json({
+            return res.status(404).json({
                 status: 'ERR',
                 message: 'The input is required'
             })
