@@ -53,3 +53,16 @@ export const deleteGenre = async (id, access_token) => {
   );
   return res.data;
 };
+
+export const deleteManyGenres = async (ids, access_token) => {
+  const res = await axiosJWT.post(
+    `${process.env.REACT_APP_API_KEY}/genre/delete-many`,
+    ids,
+    {
+      headers: {
+        token: access_token,
+      },
+    }
+  );
+  return res.data;
+};

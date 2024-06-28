@@ -1,4 +1,5 @@
 const Genre = require('../models/Genre')
+const Track = require('../models/Track')
 
 const createGenre = async (newGenre) => {
     return new Promise(async (resolve, reject) => {
@@ -52,6 +53,7 @@ const updateGenre = async (genreId, data) => {
 }
 const deleteGenre = (id) => {
     return new Promise(async (resolve, reject) => {
+        console.log('debug')
         try {
             const checkGenre = await Genre.findOne({
                 _id: id
@@ -63,12 +65,43 @@ const deleteGenre = (id) => {
                 })
             }
 
+            const checkTrack = await Track.findOne({ genre: { $in: [id] } });
+            if (checkTrack)
+                resolve({
+                    status: 'ERR',
+                    message: 'The Genre is used by a track'
+                })
+            else {
+
             await Genre.findByIdAndDelete(id)
+
+            console.log('deleted')
 
             resolve({
                 status: 'OK',
                 message: 'Delete genre success',
-            })
+            })}
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
+const deleteManyGenre = (ids) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const checkTrack = await Track.findOne({ genre: { $in: ids } });
+            if (checkTrack)
+                resolve({
+                    status: 'ERR',
+                    message: 'The Genre is used by a track'
+                })
+            else {
+            await Genre.deleteMany({ _id: ids })
+            resolve({
+                status: 'OK',
+                message: 'Delete Genre success',
+            })}
         } catch (e) {
             reject(e)
         }
@@ -118,6 +151,7 @@ module.exports = {
     createGenre,
     updateGenre,
     deleteGenre,
+    deleteManyGenre,
     getAllGenre,
     getDetailsGenre
 }

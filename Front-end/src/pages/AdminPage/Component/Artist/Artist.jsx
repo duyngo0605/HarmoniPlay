@@ -6,7 +6,7 @@ import * as ArtistService from "../../../../services/ArtistService"
 import { useMutationHook } from "../../../../hooks/useMutationHook";
 import { useCountries } from 'use-react-countries'
 
-import { Modal, Table } from "antd";
+import { Modal, Table, Checkbox } from "antd";
 import { Upload } from "antd";
 
 import styles from "../Component.module.scss"
@@ -17,6 +17,21 @@ const Artist = () => {
   const [isModalOpenAddArtist, setIsModalOpenAddArtist] = useState(false);
   const [isModalOpenEditArtist, setIsModalOpenEditArtist] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
+  
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const handleCheckboxChange = (record) => {
+    const currentIndex = selectedRowKeys.indexOf(record._id);
+    const newSelectedRowKeys = [...selectedRowKeys];
+
+    if (currentIndex === -1) {
+      newSelectedRowKeys.push(record._id);
+    } else {
+      newSelectedRowKeys.splice(currentIndex, 1);
+    }
+    setSelectedRowKeys(newSelectedRowKeys);
+    console.log('selected',selectedRowKeys)
+  }
 
   const [stateArtist, setStateArtist] = useState({
     name: "",
@@ -62,6 +77,12 @@ const Artist = () => {
     return res;
   });
 
+  const mutationDeleteMany = useMutationHook((data) => {
+    const { ids, token } = data;
+    const res = ArtistService.deleteManyArtists({ids: ids}, token);
+    return res;
+  });
+
 
   const [Data, setData] = useState([]);
 
@@ -99,6 +120,9 @@ const Artist = () => {
               handleDeleteArtist(record);
             }}
           >Delete</IonIcon>
+           <Checkbox
+            onChange={() => handleCheckboxChange(record)}
+          />
         </div>
       ),
     },
@@ -113,6 +137,8 @@ const Artist = () => {
   } = mutationUpdate;
 
   const { data: dataDeleted, isLoading: isLoadingDeleted } = mutationDelete;
+  const { data: dataDeletedMany, isLoading: isLoadingDeletedMany } = mutationDeleteMany;
+
 
   const handleOkAddArtist = () => {
     mutation.mutate(stateArtist);
@@ -180,6 +206,16 @@ const Artist = () => {
     }
   };
 
+  const handleDeleteManyArtists = () => {
+    if (window.confirm("Bạn có muốn xoá các nghệ sĩ này không?")) {
+      mutationDeleteMany.mutate({
+        ids: selectedRowKeys,
+        token: token,
+      });
+    }
+  };
+
+
   useEffect(() => {
     if (isSuccess && mutation.data.status === "OK") {
       alert("Thêm nghệ sĩ thành công");
@@ -204,7 +240,20 @@ const Artist = () => {
       alert("Xóa thành công");
       window.location.reload();
     }
+    else if (dataDeleted?.status === "ERR") {
+      alert(dataDeleted?.message);
+    }
   }, [dataDeleted]);
+
+  useEffect(() => {
+    if (dataDeletedMany?.status === "OK") {
+      alert("Xóa thành công");
+      window.location.reload();
+    }
+    else if (dataDeletedMany?.status === "ERR") {
+      alert(dataDeletedMany?.message);
+    }
+  }, [dataDeletedMany]);
 
   const fetchArtistAll = async () => {
     try {
@@ -284,6 +333,12 @@ const Artist = () => {
               color="blue"
             
             ></IonIcon>
+        </div>
+        <div>
+        {selectedRowKeys.length > 0 ? (
+          <button className={cx("delete-button")} onClick={handleDeleteManyArtists} >
+            Xóa các nghệ sĩ đã chọn
+          </button>) : (<></>)}
         </div>
       </div>
       

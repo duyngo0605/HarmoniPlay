@@ -5,7 +5,7 @@ import { trashBinOutline, addOutline,pencilOutline } from "ionicons/icons";
 import * as GenreService from "../../../../services/GenreService"
 import { useMutationHook } from "../../../../hooks/useMutationHook";
 
-import { Modal, Table } from "antd";
+import { Checkbox, Modal, Table } from "antd";
 import { Upload } from "antd";
 
 import styles from "../Component.module.scss"
@@ -16,6 +16,21 @@ const Genre = () => {
   const [isModalOpenAddGenre, setIsModalOpenAddGenre] = useState(false);
   const [isModalOpenEditGenre, setIsModalOpenEditGenre] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const handleCheckboxChange = (record) => {
+    const currentIndex = selectedRowKeys.indexOf(record._id);
+    const newSelectedRowKeys = [...selectedRowKeys];
+
+    if (currentIndex === -1) {
+      newSelectedRowKeys.push(record._id);
+    } else {
+      newSelectedRowKeys.splice(currentIndex, 1);
+    }
+    setSelectedRowKeys(newSelectedRowKeys);
+    console.log('selected',selectedRowKeys)
+  }
 
   const [stateGenre, setStateGenre] = useState({
     name: "",
@@ -40,6 +55,12 @@ const Genre = () => {
   const mutationDelete = useMutationHook((data) => {
     const { id, token } = data;
     const res = GenreService.deleteGenre(id, token);
+    return res;
+  });
+
+  const mutationDeleteMany = useMutationHook((data) => {
+    const { ids, token } =data;
+    const res = GenreService.deleteManyGenres({ids: ids}, token);
     return res;
   });
 
@@ -68,6 +89,9 @@ const Genre = () => {
               handleDeleteGenre(record);
             }}
           >Delete</IonIcon>
+          <Checkbox
+            onChange={() => handleCheckboxChange(record)}
+          />
         </div>
         
       ),
@@ -83,6 +107,7 @@ const Genre = () => {
   } = mutationUpdate;
 
   const { data: dataDeleted, isLoading: isLoadingDeleted } = mutationDelete;
+  const { data: dataDeletedMany, isLoading: isLoadingDeletedMany } = mutationDeleteMany;
 
   const handleOkAddGenre = () => {
     mutation.mutate(stateGenre);
@@ -147,6 +172,15 @@ const Genre = () => {
     }
   };
 
+  const handleDeleteManyGenres = () => {
+    if (window.confirm("Bạn có muốn xoá các thể loại này không?")) {
+      mutationDeleteMany.mutate({
+        ids: selectedRowKeys,
+        token: token,
+      });
+    }
+  };
+
   useEffect(() => {
     if (isSuccess && mutation.data.status === "OK") {
       alert("Thêm thể loại thành công");
@@ -171,7 +205,20 @@ const Genre = () => {
       alert("Xóa thành công");
       window.location.reload();
     }
+    else if (dataDeleted?.status === "ERR") {
+      alert(dataDeleted?.message)
+    }
   }, [dataDeleted]);
+
+  useEffect(() => {
+    if (dataDeletedMany?.status === "OK") {
+      alert("Xóa các thể loại thành công");
+      window.location.reload();
+    }
+    else if (dataDeletedMany?.status === "ERR") {
+      alert(dataDeletedMany?.message)
+    }
+  }, [dataDeletedMany]);
 
 
   const fetchGenreAll = async () => {
@@ -197,8 +244,6 @@ const Genre = () => {
     console.log("Data:", Data);
   }, []);
 
-  
-
   return (
     <div className={cx("container")}>
       <div className={cx("flex-row")}>
@@ -215,7 +260,15 @@ const Genre = () => {
               color="blue"
             
             ></IonIcon>
+          
         </div>
+        <div>
+        {selectedRowKeys.length > 0 ? (
+          <button className={cx("delete-button")} onClick={handleDeleteManyGenres} >
+            Xóa các thể loại đã chọn
+          </button>) : (<></>)}
+        </div>
+      
       </div>
       
       <div class={cx("content")}>

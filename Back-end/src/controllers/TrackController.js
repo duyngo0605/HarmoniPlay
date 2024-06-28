@@ -63,6 +63,24 @@ const deleteTrack = async (req,res) => {
     }
 }
 
+const deleteManyTrack = async (req,res) => {
+    try {
+        const ids = req.body.ids
+        if (!ids) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The ids is required'
+            })
+        }
+        const response = await TrackService.deleteManyTrack(ids)
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
 const getDetailsTrack = async (req,res)=> {
     try {
         const trackId = req.params.id
@@ -114,6 +132,7 @@ module.exports = {
     createTrack,
     updateTrack,
     deleteTrack,
+    deleteManyTrack,
     getDetailsTrack,
     recommendTracks,
     getAllTrack,

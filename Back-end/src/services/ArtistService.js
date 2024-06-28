@@ -1,4 +1,5 @@
 const Artist = require('../models/Artist')
+const Track = require('../models/Track')
 
 
 const createArtist = async (newArtist) => {
@@ -66,13 +67,20 @@ const deleteArtist = (id) => {
                     message: 'The artist is not defined'
                 })
             }
+            const checkTrack = await Track.findOne({ artist: { $in: [id] } });
+            if (checkTrack)
+                resolve({
+                    status: 'ERR',
+                    message: 'Could not delete becasue there are tracks owned by this artist'
+                })
+            else {
 
             await Artist.findByIdAndDelete(id)
 
             resolve({
                 status: 'OK',
                 message: 'Delete artist success',
-            })
+            })}
         } catch (e) {
             reject(e)
         }
@@ -82,12 +90,20 @@ const deleteArtist = (id) => {
 const deleteManyArtist = (ids) => {
     return new Promise(async (resolve, reject) => {
         try {
+            console.log('delete many')
+            const checkTrack = await Track.findOne({ artist: { $in: ids } });
+            if (checkTrack)
+                resolve({
+                    status: 'ERR',
+                    message: 'Could not delete becasue there are tracks owned by one of these artists'
+                })
+            else {
 
             await Artist.deleteMany({ _id: ids })
             resolve({
                 status: 'OK',
                 message: 'Delete artists success',
-            })
+            })}
         } catch (e) {
             reject(e)
         }

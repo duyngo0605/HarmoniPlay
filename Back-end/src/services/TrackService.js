@@ -145,6 +145,24 @@ const deleteTrack = async (trackId) => {
     })
 }
 
+
+const deleteManyTrack = (ids) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            ids.map(async (id) => {
+                await deleteTrack(id);
+            })
+            resolve({
+                status: 'OK',
+                message: 'Delete tracks success',
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 const getDetailsTrack = async (trackId) => {
     return new Promise(async (resolve,reject) => {
 
@@ -247,6 +265,7 @@ module.exports = {
     createTrack,
     updateTrack,
     deleteTrack,
+    deleteManyTrack,
     getDetailsTrack,
     getAllTrack
 }

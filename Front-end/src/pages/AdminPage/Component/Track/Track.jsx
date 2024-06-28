@@ -7,7 +7,7 @@ import * as ArtistService from "../../../../services/ArtistService"
 import * as GenreService from "../../../../services/GenreService"
 import { useMutationHook } from "../../../../hooks/useMutationHook";
 
-import { Modal, Table } from "antd";
+import { Modal, Table, Checkbox } from "antd";
 import { Upload } from "antd";
 
 import styles from "../Component.module.scss"
@@ -18,6 +18,22 @@ const Track = () => {
   const [isModalOpenAddTrack, setIsModalOpenAddTrack] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isModalOpenEditTrack, setIsModalOpenEditTrack] = useState(false);
+
+  
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const handleCheckboxChange = (record) => {
+    const currentIndex = selectedRowKeys.indexOf(record._id);
+    const newSelectedRowKeys = [...selectedRowKeys];
+
+    if (currentIndex === -1) {
+      newSelectedRowKeys.push(record._id);
+    } else {
+      newSelectedRowKeys.splice(currentIndex, 1);
+    }
+    setSelectedRowKeys(newSelectedRowKeys);
+    console.log('selected',selectedRowKeys)
+  }
 
   const [isDropdownType, setIsDropdownType] = useState(false);
   const [isDropdownCompany, setIsDropdownCompany] = useState(false);
@@ -62,6 +78,13 @@ const Track = () => {
     const res = TrackService.deleteTrack(id, token);
     return res;
   });
+
+  const mutationDeleteMany = useMutationHook((data) => {
+    const { ids, token } =data;
+    const res = GenreService.deleteManyGenres({ids: ids}, token);
+    return res;
+  });
+
 
   const [Data, setData] = useState([]);
 
@@ -126,6 +149,9 @@ const Track = () => {
               handleDeleteTrack(record);
             }}
           >Delete</IonIcon>
+           <Checkbox
+            onChange={() => handleCheckboxChange(record)}
+          />
         </div>
       ),
     },
@@ -141,6 +167,8 @@ const Track = () => {
   } = mutationUpdate;
 
   const { data: dataDeleted, isLoading: isLoadingDeleted } = mutationDelete;
+  const { data: dataDeletedMany, isLoading: isLoadingDeletedMany } = mutationDeleteMany;
+
 
   const handleOkAddTrack = () => {
     mutation.mutate(stateTrack);
@@ -204,12 +232,24 @@ const Track = () => {
     setIsModalOpenEditTrack(false);
   };
 
-  const handleOnChangeEdit= (event) => {
-    setStateTrackDetails({
-      ...stateTrackDetails,
-      [event.target.name]: event.target.value,
-    });
+  const handleOnChangeEdit = (event) => {
+    const { name, value, type, options } = event.target;
 
+    if (type === 'select-multiple') {
+      const selectedValues = Array.from(options)
+        .filter(option => option.selected)
+        .map(option => option.value);
+
+      setStateTrackDetails({
+        ...stateTrackDetails,
+        [name]: selectedValues,
+      });
+    } else {
+      setStateTrackDetails({
+        ...stateTrackDetails,
+        [name]: value,
+      });
+    }
   };
 
 
@@ -223,6 +263,16 @@ const Track = () => {
 
     }
   };
+
+  const handleDeleteManyTracks = () => {
+    if (window.confirm("Bạn có muốn xoá các bài hát này không?")) {
+      mutationDeleteMany.mutate({
+        ids: selectedRowKeys,
+        token: token,
+      });
+    }
+  };
+
 
   useEffect(() => {
     if (isSuccess && mutation.data.status === "OK") {
@@ -386,6 +436,12 @@ const Track = () => {
             
             ></IonIcon>
         </div>
+        <div>
+        {selectedRowKeys.length > 0 ? (
+          <button className={cx("delete-button")} onClick={handleDeleteManyTracks} >
+            Xóa các bài hát đã chọn
+          </button>) : (<></>)}
+        </div>
       </div>
       <div class={cx("content")}>
         <Table columns={columns} 
@@ -434,22 +490,6 @@ const Track = () => {
               onChange={handleOnChange}
               name="link"
             />
-          </div>
-          <div className={cx("modal-input")}>
-            <div className={cx(".centered-div")}>
-            <button className={cx("file-input-label")} onClick={() => {
-                  document.getElementById("selectFileTrack").click();
-                }}>
-                  Choose File
-                  <input id="selectFileTrack"
-                    type="file"
-                    accept=".mp3,audio/*"
-                    onClick={handleOnChangeLink}
-                    className={cx("file-input")}
-                    hidden
-                  />
-                </button>
-            </div>             
           </div>
           <div className={cx("modal-input")}>
             <p>Image:</p>
@@ -558,19 +598,19 @@ const Track = () => {
             />
           </div>
           <div className={cx("modal-input")}>
-            <p>Image:</p>
+            <p>Link:</p>
             <input
                   type="text"
-                  value={stateTrackDetails.image}
+                  value={stateTrackDetails.link}
                   onChange={handleOnChangeEdit}
                   name="image"
                 />
           </div>
           <div className={cx("modal-input")}>
-            <p>Link:</p>
+            <p>Image:</p>
             <input
                   type="text"
-                  value={stateTrackDetails.link}
+                  value={stateTrackDetails.image}
                   onChange={handleOnChangeEdit}
                   name="image"
                 />

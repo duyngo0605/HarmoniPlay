@@ -4,7 +4,6 @@ const createArtist = async (req,res) => {
     try {
 
         const {name, image, country, description} = req.body
-        console.log( {name, image, country, description})
         if (!name || !image || !country || !description)
         {
             return res.status(404).json({
@@ -70,6 +69,7 @@ const deleteArtist = async (req,res) => {
 
 const deleteManyArtist = async (req,res) => {
     try {
+        console.log('delete many')
         const ids = req.body.ids
         if (!ids) {
             return res.status(200).json({
