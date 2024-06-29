@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { routes } from "./routes/index";
-import Navbar from "./pages/Navbar/Navbar";
+
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 

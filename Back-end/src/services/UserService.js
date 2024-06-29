@@ -1,12 +1,26 @@
 const User = require('../models/User')
+const Playlist = require('../models/Playlist')
 const bcrypt = require('bcrypt')
 const { generalAccessToken, generalRefreshToken, decodeAccessToken } = require('./JwtService')
+const Track = require('../models/Track')
 
 const createUser = async (newUser) => {
     return new Promise(async (resolve, reject) => {
 
-        const { username, email, password, confirmPassword } = newUser
+        const { username, email, password } = newUser
+
         try {
+            const checkUser = await User.findOne({
+                username: username
+            })
+    
+            if (checkUser){
+                resolve({
+                    status: 'ERR',
+                    message: 'The user was existed.'
+                })
+            }
+
             const hash = bcrypt.hashSync(password, 10);
             const createdUser = await User.create({
                 username,
@@ -40,7 +54,7 @@ const loginUser = async (loginModel) => {
 
             if (!checkUser){
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined.'
                 })
             }
@@ -67,7 +81,7 @@ const loginUser = async (loginModel) => {
             else
             {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The password is not correct.'
                 })
             }
@@ -89,7 +103,7 @@ const updateUser = async (userId, data) => {
             })
             if (!checkUser){
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined.'
                 })
             }
@@ -126,6 +140,8 @@ const deleteUser = (id) => {
                 })
             }
 
+            await Playlist.deleteMany({ creator: id });
+
             await User.findByIdAndDelete(id)
             resolve({
                 status: 'OK',
@@ -141,7 +157,9 @@ const deleteManyUser = (ids) => {
     return new Promise(async (resolve, reject) => {
         try {
 
-            await User.deleteMany({ _id: ids })
+            ids.map(async (id) => {
+                await deleteUser(id);
+            })
             resolve({
                 status: 'OK',
                 message: 'Delete user success',

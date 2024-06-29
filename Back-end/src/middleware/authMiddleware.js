@@ -12,6 +12,7 @@ const authMiddleWare = (req, res, next) => {
             })
         }
         if (user?.isAdmin) {
+            console.log('auth mid')
             next()
         } else {
             return res.status(404).json({
@@ -23,6 +24,7 @@ const authMiddleWare = (req, res, next) => {
 }
 
 const authUserMiddleWare = (req, res, next) => {
+
     const token = req.headers.token
     const userId = req.params.id
     jwt.verify(token, process.env.ACCESS_TOKEN, function (err, user) {

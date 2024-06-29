@@ -36,6 +36,12 @@ const createUser =  async (req, res) => {
 const loginUser =  async (req, res) => {    
     try {
         const { username, password} = req.body
+        if (!username || !password) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The input is required'
+            })
+        }
         const response = await UserService.loginUser(req.body)
         
         return res.status(200).json(response)
@@ -164,6 +170,7 @@ const refreshToken = async (req, res) => {
 const logoutUser = async (req, res) => {
     try {
         res.clearCookie('refresh_token')
+        res.clearCookie('access_token')
         return res.status(200).json({
             status: 'OK',
             message: 'Logout successfully'

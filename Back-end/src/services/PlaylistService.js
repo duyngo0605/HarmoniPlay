@@ -170,7 +170,7 @@ const getAllPlaylist = (limit, page, sort, filter) => {
           const label = filter[0];
           const allObjectFilter = await Playlist.find({
             [label]: { $regex: filter[1] },
-          })
+          }).populate([{path: 'creator'}])
             .limit(limit)
             .skip(page * limit)
             .sort({ createdAt: -1, updatedAt: -1 });
@@ -190,7 +190,7 @@ const getAllPlaylist = (limit, page, sort, filter) => {
             .limit(limit)
             .skip(page * limit)
             .sort(objectSort)
-            .sort({ createdAt: -1, updatedAt: -1 });
+            .sort({ createdAt: -1, updatedAt: -1 }).populate([{path: 'creator'}]);
           resolve({
             status: "OK",
             message: "Success",
@@ -204,12 +204,12 @@ const getAllPlaylist = (limit, page, sort, filter) => {
           allPlaylist = await Playlist.find().sort({
             createdAt: -1,
             updatedAt: -1,
-          });
+          }).populate([{path: 'creator'}]);
         } else {
             allPlaylist = await Playlist.find()
             .limit(limit)
             .skip(page * limit)
-            .sort({ createdAt: -1, updatedAt: -1 });
+            .sort({ createdAt: -1, updatedAt: -1 }).populate([{path: 'creator'}]);
         }
         resolve({
           status: "OK",

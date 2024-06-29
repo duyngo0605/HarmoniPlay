@@ -26,7 +26,7 @@ const createGenre = async (req,res) => {
 const updateGenre = async (req,res) => {
     try {
         const genreId = req.params.id
-
+        const data = req.body;
         if (!genreId)
         {
             return res.status(200).json({
@@ -34,7 +34,7 @@ const updateGenre = async (req,res) => {
             })
         }
 
-        const response = await GenreService.updateGenre(genreId)
+        const response = await GenreService.updateGenre(genreId, data)
         return res.status(200).json(response)
     }
 
@@ -69,9 +69,42 @@ const deleteGenre = async (req,res) => {
     }
 }
 
+const deleteManyGenre = async (req, res) => {
+    try {
+        const {ids} = req.body
+        if (!ids) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The ids is required'
+            })
+        }
+        const response = await GenreService.deleteManyGenre(ids)
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
+
 const getAllGenre = async (req,res) => {
     try {
         const response = await GenreService.getAllGenre()
+        return res.status(200).json(response)
+    }
+    catch (e)
+    {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
+const getDetailsGenre = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await GenreService.getDetailsGenre(id)
         return res.status(200).json(response)
     }
     catch (e)
@@ -86,5 +119,7 @@ module.exports = {
     createGenre,
     updateGenre,
     deleteGenre,
-    getAllGenre
+    deleteManyGenre,
+    getAllGenre,
+    getDetailsGenre
 }

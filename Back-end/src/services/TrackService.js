@@ -7,18 +7,18 @@ const createTrack = async (newTrack) => {
 
         try {
 
-            const { title, artistIds, link, image, genreIds, releaseDate, duration } = newTrack;
+            const { title, artist, link, image, genre, releaseDate, duration } = newTrack;
 
-            const artists = await Artist.find({_id: {$in: artistIds}})
-            if (artists.length !== artistIds.length) {
+            const artists = await Artist.find({_id: {$in: artist}})
+            if (artists.length !== artist.length) {
                 resolve({
                     status: 'ERR',
                     message: 'One ore more artists not found'
                 })
             }
- 
-            const genres = await Genre.find({ _id: { $in: genreIds } });
-            if (genres.length !== genreIds.length) {
+            
+            const genres = await Genre.find({ _id: { $in: genre } });
+            if (genres.length !== genre.length) {
                 resolve({
                     status: 'ERR',
                     message: 'One ore more genres not found'
@@ -27,10 +27,10 @@ const createTrack = async (newTrack) => {
     
             const createdTrack = await Track.create({
                 title,
-                artist: artistIds,
+                artist: artist,
                 link,
                 image,
-                genre: genreIds,
+                genre: genre,
                 releaseDate,
                 duration
             });
@@ -73,10 +73,10 @@ const updateTrack = async (trackId, data) => {
 
  
 
-            if (data.artistIds)
+            if (data.artist)
             {
                 const lastArtists = await Artist.find({_id: {$in: checkTrack.artist}})
-                const currArtists = await Artist.find({_id: {$in: data.artistIds}})
+                const currArtists = await Artist.find({_id: {$in: data.artist}})
                 lastArtists.forEach(async (artist) => {
                     artist.tracks.pull(trackId)
                     await artist.save()
@@ -89,8 +89,8 @@ const updateTrack = async (trackId, data) => {
             
             const updatedTrack = await Track.findByIdAndUpdate(trackId, {
                 ...data,
-                artist: data.artistIds,
-                genre: data.genreIds,
+                artist: data.artist,
+                genre: data.genre,
             }, {new: true})
             console.log(data)
 
@@ -145,12 +145,30 @@ const deleteTrack = async (trackId) => {
     })
 }
 
+
+const deleteManyTrack = (ids) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            ids.map(async (id) => {
+                await deleteTrack(id);
+            })
+            resolve({
+                status: 'OK',
+                message: 'Delete tracks success',
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 const getDetailsTrack = async (trackId) => {
     return new Promise(async (resolve,reject) => {
 
         try {
 
-            const checkTrack = await Track.findById(trackId)
+            const checkTrack = await Track.findById(trackId).populate([{path: 'genre'}, {path: 'artist'}])
             if (!checkTrack)
             {
                 resolve({
@@ -187,7 +205,7 @@ const getAllTrack = (limit, page, sort, filter) => {
           const label = filter[0];
           const allObjectFilter = await Track.find({
             [label]: { $regex: filter[1] },
-          })
+          }).populate([{path: 'genre'}, {path: 'artist'}])
             .limit(limit)
             .skip(page * limit)
             .sort({ createdAt: -1, updatedAt: -1 });
@@ -207,7 +225,7 @@ const getAllTrack = (limit, page, sort, filter) => {
             .limit(limit)
             .skip(page * limit)
             .sort(objectSort)
-            .sort({ createdAt: -1, updatedAt: -1 });
+            .sort({ createdAt: -1, updatedAt: -1 }).populate([{path: 'genre'}, {path: 'artist'}]);
           resolve({
             status: "OK",
             message: "Success",
@@ -221,13 +239,13 @@ const getAllTrack = (limit, page, sort, filter) => {
           allTrack = await Track.find().sort({
             createdAt: -1,
             updatedAt: -1,
-          });
+          }).populate([{path: 'genre'}, {path: 'artist'}]);
         } else {
 
             allTrack = await Track.find()
             .limit(limit)
             .skip(page * limit)
-            .sort({ createdAt: -1, updatedAt: -1 });
+            .sort({ createdAt: -1, updatedAt: -1 }).populate([{path: 'genre'}, {path: 'artist'}]);
         }
         resolve({
           status: "OK",
@@ -247,6 +265,7 @@ module.exports = {
     createTrack,
     updateTrack,
     deleteTrack,
+    deleteManyTrack,
     getDetailsTrack,
     getAllTrack
 }

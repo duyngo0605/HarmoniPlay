@@ -3,11 +3,11 @@ const RecommendService = require('../services/RecommendService')
 
 const createTrack = async (req, res) => {
     try {
-        const { title, artistIds, link, image, genreIds, releaseDate, duration } = req.body;
+        const { title, artist, link, image, genre, releaseDate, duration } = req.body;
 
-        if (!title || !artistIds || !link || !image || !genreIds || !releaseDate || !duration) {
-            return res.status(400).json({ message: 'All fields are required.' });
-        }
+        console.log(req.body)
+
+
 
         const response = await TrackService.createTrack(req.body);
         return res.status(200).json(response)
@@ -57,6 +57,24 @@ const deleteTrack = async (req,res) => {
     }
 
     catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
+const deleteManyTrack = async (req,res) => {
+    try {
+        const ids = req.body.ids
+        if (!ids) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The ids is required'
+            })
+        }
+        const response = await TrackService.deleteManyTrack(ids)
+        return res.status(200).json(response)
+    } catch (e) {
         return res.status(404).json({
             message: e
         })
@@ -114,6 +132,7 @@ module.exports = {
     createTrack,
     updateTrack,
     deleteTrack,
+    deleteManyTrack,
     getDetailsTrack,
     recommendTracks,
     getAllTrack,

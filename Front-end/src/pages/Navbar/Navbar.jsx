@@ -1,8 +1,17 @@
-import react from "react";
+import React from "react";
 import "../styles/navbar.css";
 import logo from "../assest/image 22.png";
 
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+
+  const navigate = useNavigate();
+  
+  const handleLogin = () => {
+    navigate("/login")
+  }
+
   return (
     <nav className="nav">
       <div className="app_logo">
@@ -159,7 +168,7 @@ const Navbar = () => {
 
         <div className="advertise">
           <span>Đăng nhập để khám phá playlist cho riêng mình</span>
-          <a href="">ĐĂNG NHẬP</a>
+          <a href="" onClick={handleLogin}>ĐĂNG NHẬP</a>
         </div>
 
         <ul className="navbar_item">

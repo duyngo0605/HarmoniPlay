@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
+
 import SongView from "../Components/SongView";
+
 import "../styles/main.css";
 import "../styles/banner.css";
 import "../styles/recently.css";

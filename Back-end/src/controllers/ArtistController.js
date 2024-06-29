@@ -2,10 +2,11 @@ const ArtistService = require('../services/ArtistService')
 
 const createArtist = async (req,res) => {
     try {
+
         const {name, image, country, description} = req.body
         if (!name || !image || !country || !description)
         {
-            return res.status(200).json({
+            return res.status(404).json({
                 status: 'ERR',
                 message: 'The input is required'
             })
@@ -68,6 +69,7 @@ const deleteArtist = async (req,res) => {
 
 const deleteManyArtist = async (req,res) => {
     try {
+
         const ids = req.body.ids
         if (!ids) {
             return res.status(200).json({
