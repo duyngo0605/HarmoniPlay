@@ -1,0 +1,106 @@
+.playlist {
+  display: flex;
+}
+
+.info {
+  width: 40%;
+}
+
+.info .decrip {
+  margin-top: 20px;
+}
+
+.info img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.decrip p {
+  text-align: center;
+  color: hsla(100%, 0%, 100%, 0.5);
+  font-size: 13px;
+  font-family: Inter, sans-serif;
+}
+
+.decrip .title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: black;
+}
+
+.control button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 17px;
+  padding: 5px 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: purple;
+  color: white;
+}
+
+.control .icon {
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.icon ion-icon:hover {
+  background-color: purple;
+  border-radius: 50%;
+}
+
+.listitem {
+  width: 60%;
+}
+.song-thumb {
+  position: relative;
+}
+.song-thumb ion-icon {
+  color: white;
+  font-size: 28px;
+  padding: 5px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.media:hover {
+  background-color: rgba(128, 128, 128, 0.8);
+  border-radius: 10px;
+}
+
+.listitem .song-thumb ion-icon:nth-child(2) {
+  margin-left: 550px;
+}
+
+.listitem .song-thumb ion-icon:nth-child(3) {
+  margin-left: 628px;
+}
+
+.list .song-thumb ion-icon:nth-child(2) {
+  margin-left: 470px;
+}
+
+.list .song-thumb ion-icon:nth-child(3) {
+  margin-left: 510px;
+}
+
+.song-thumb ion-icon:hover {
+  background-color: rgba(128, 128, 128, 0.8);
+}
+
+.media:hover ion-icon {
+  display: block;
+}

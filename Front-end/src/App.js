@@ -6,24 +6,8 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 export default function App() {
-  // useEffect(() => {
-  //   fetchApi();
-  // }, []);
-
-  const fetchApi = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_KEY}/artist/get-all-artist`
-    );
-    return res.data;
-  };
-
-  const query = useQuery({ queryKey: ["todos"], queryFn: fetchApi });
-
-  console.log(query);
-
   return (
     <div>
-      <Navbar />;
       <Router>
         <Routes>
           {routes.map((route) => {

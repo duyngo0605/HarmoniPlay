@@ -1,0 +1,234 @@
+.chart_title {
+  margin: 40px 0;
+}
+
+.chart_title span {
+  font-size: 40px;
+
+  font-weight: bold;
+  color: purple;
+}
+
+.chart_title ion-icon {
+  margin-left: 10px;
+  color: purple;
+  border: solid 1px purple;
+  border-radius: 50%;
+  font-size: 30px;
+}
+.row {
+  display: flex;
+}
+
+.row-1,
+.row-2,
+.row-3 {
+  border: solid 1px black;
+  height: 450px;
+  width: 375px;
+  border-radius: 10px;
+}
+
+.row-1 {
+  margin-right: 20px;
+}
+
+.row-3 {
+  margin-left: 20px;
+}
+
+.head_title_chart {
+  margin: 20px 0 20px 20px;
+}
+
+.head_title_chart span {
+  font-size: 25px;
+  color: purple;
+}
+
+.head_title_chart ion-icon {
+  margin-left: 10px;
+  color: purple;
+  border: solid 1px purple;
+  border-radius: 50%;
+}
+
+.chart_week_item {
+  margin: 0 10px 15px 10px;
+}
+
+.media {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.media-left {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.number span {
+  font-size: 32px;
+  font-weight: 900;
+  -webkit-text-stroke: 1.5px purple;
+  color: white;
+  line-height: 1;
+  width: 32px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.sort {
+  display: flex;
+  height: 36px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 7px;
+}
+
+.sort svg {
+  color: green;
+}
+
+.sort span {
+  height: 16px;
+}
+
+.song-thumb {
+  margin: 0 10px 0 5px;
+}
+
+.song-thumb img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.song-name a span {
+  font-size: 20px;
+}
+
+.song-name a:hover span {
+  color: purple;
+}
+
+.card-info .song-artist {
+  font-weight: 400;
+}
+
+.song-artist a {
+  color: gray;
+}
+
+.song-artist a:hover {
+  color: purple;
+}
+
+.media-right {
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 10px;
+}
+
+.show_all {
+  width: 150px;
+  padding: 10px 0;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+
+  border-radius: 10px;
+  border: 1px solid purple;
+}
+/* enter show all btn */
+.nav_container {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+}
+
+.nav_menu {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav_item {
+  font-size: 24px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  margin: 0 20px 0 0;
+  padding: 5px;
+  line-height: normal;
+}
+
+.sub_nav_item {
+  font-size: 16px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  margin: 0 20px 0 0;
+  padding: 5px;
+  line-height: normal;
+}
+
+.sub_nav_item.active {
+  color: purple;
+  border-bottom: 3px solid purple;
+}
+
+.nav_item.active {
+  color: purple;
+  border-bottom: 2px solid purple;
+}
+
+.nav_item a {
+  color: inherit;
+}
+
+.calendar .week {
+  margin: 20px 0;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.list-item > .media {
+  border-bottom: solid 1px purple;
+  padding: 10px;
+}
+
+.media-content {
+  flex-basis: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+  text-align: left;
+  align-self: center;
+  width: 0;
+}
+
+.media-content .album-info {
+  color: grey;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.title_table {
+  padding: 5px;
+}

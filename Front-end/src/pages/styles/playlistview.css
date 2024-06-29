@@ -1,0 +1,22 @@
+.main_topic-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.topic-item a img {
+  width: 212px;
+}
+
+.topic-item .decrip_item {
+  color: black;
+  cursor: pointer;
+}
+
+.topic-item .decrip_item:hover {
+  color: purple;
+}
+
+.menu img {
+  width: 212px;
+  height: 212px;
+}
