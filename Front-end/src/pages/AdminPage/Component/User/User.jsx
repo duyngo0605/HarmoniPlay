@@ -27,7 +27,7 @@ const User = () => {
   const { data: dataDeleted, isLoading: isLoadingDeleted } = mutationDelete;
 
   const handleDeleteUser = (record) => {
-    if (window.confirm("Bạn có muốn xoá thể loại này không?")) {
+    if (window.confirm("Bạn có muốn xoá người dùng này không?")) {
 
       mutationDelete.mutate({
         id: record._id,
@@ -74,16 +74,20 @@ const User = () => {
       render: (text, record) => (
         <div>
           <div className={cx("AiIcons")} color="red" />
-          <div>
-           <IonIcon icon={trashBinOutline}
-            className={cx("AiIcons")}
-            color="red"
-            onClick={() => {
-              handleDeleteUser(record);
-            }}
-          >Delete</IonIcon>
+          {record.username !== 'admin' ? (
+             <div>
+             <IonIcon icon={trashBinOutline}
+              className={cx("AiIcons")}
+              color="red"
+              onClick={() => {
+                handleDeleteUser(record);
+              }}
+            >Delete</IonIcon>
+            </div>
+          ) : (<></>)}
          
-        </div>
+         
+
         </div>
       ),
     },

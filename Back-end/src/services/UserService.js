@@ -1,6 +1,8 @@
 const User = require('../models/User')
+const Playlist = require('../models/Playlist')
 const bcrypt = require('bcrypt')
 const { generalAccessToken, generalRefreshToken, decodeAccessToken } = require('./JwtService')
+const Track = require('../models/Track')
 
 const createUser = async (newUser) => {
     return new Promise(async (resolve, reject) => {
@@ -138,6 +140,8 @@ const deleteUser = (id) => {
                 })
             }
 
+            await Playlist.deleteMany({ creator: id });
+
             await User.findByIdAndDelete(id)
             resolve({
                 status: 'OK',
@@ -153,7 +157,9 @@ const deleteManyUser = (ids) => {
     return new Promise(async (resolve, reject) => {
         try {
 
-            await User.deleteMany({ _id: ids })
+            ids.map(async (id) => {
+                await deleteUser(id);
+            })
             resolve({
                 status: 'OK',
                 message: 'Delete user success',

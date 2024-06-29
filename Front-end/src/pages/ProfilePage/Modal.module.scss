@@ -1,0 +1,69 @@
+/* ModalForm.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+/* Your custom styles for the form elements go here */
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-content button {
+  width: 40%;
+  justify-content: center;
+  margin-left: 4rem;
+  padding: 0.75rem;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  background-color: #ccc;
+  color: black;
+  
+}
+
+.modal-content button:hover {
+  background-color: #0a68ffcc;
+}
+
+/* Add any additional styling based on your form structure */

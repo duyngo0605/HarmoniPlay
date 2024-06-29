@@ -72,9 +72,9 @@ export const refreshToken = async () => {
     return res.data;
   };
   
-  export const updateUser = async (id, data, access_token) => {
-    const res = await axiosJWT.put(
-      `${process.env.REACT_APP_API_KEY}/user/update-user/${id}`,
+  export const updateUser = async (id, access_token, data) => {
+    const res = await axiosJWT.post(
+      `${process.env.REACT_APP_API_KEY}/user/update/${id}`,
       data,
       {
         headers: {
@@ -82,6 +82,5 @@ export const refreshToken = async () => {
         },
       }
     );
-    alert("Update succesfully!");
     return res.data;
   };

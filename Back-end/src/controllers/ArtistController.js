@@ -69,7 +69,7 @@ const deleteArtist = async (req,res) => {
 
 const deleteManyArtist = async (req,res) => {
     try {
-        console.log('delete many')
+
         const ids = req.body.ids
         if (!ids) {
             return res.status(200).json({

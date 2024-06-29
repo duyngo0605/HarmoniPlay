@@ -5,7 +5,6 @@ dotenv.config()
 const authMiddleWare = (req, res, next) => {
     const token = req.headers.token
     jwt.verify(token, process.env.ACCESS_TOKEN, function (err, user) {
-
         if (err) {
             return res.status(404).json({
                 message: 'The error',
@@ -25,6 +24,7 @@ const authMiddleWare = (req, res, next) => {
 }
 
 const authUserMiddleWare = (req, res, next) => {
+
     const token = req.headers.token
     const userId = req.params.id
     jwt.verify(token, process.env.ACCESS_TOKEN, function (err, user) {
