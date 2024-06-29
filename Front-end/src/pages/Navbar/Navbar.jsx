@@ -4,14 +4,14 @@ import logo from "../assest/image 22.png";
 
 const Navbar = () => {
   return (
-    <nav>
-      <div class="app_logo">
+    <nav className="nav">
+      <div className="app_logo">
         <a href="">
-          <img class="logo" src={logo} alt="logo" />
+          <img className="logo" src={logo} alt="logo" />
         </a>
       </div>
 
-      <ul class="select_navbar">
+      <ul className="select_navbar">
         <a href="">
           <li>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -74,8 +74,8 @@ const Navbar = () => {
         </a>
       </ul>
 
-      <div class="navbar_scroll">
-        <ul class="item_scroll">
+      <div className="navbar_scroll">
+        <ul className="item_scroll">
           <a href="">
             <li>
               <svg
@@ -157,12 +157,12 @@ const Navbar = () => {
           </a>
         </ul>
 
-        <div class="advertise">
+        <div className="advertise">
           <span>Đăng nhập để khám phá playlist cho riêng mình</span>
           <a href="">ĐĂNG NHẬP</a>
         </div>
 
-        <ul class="navbar_item">
+        <ul className="navbar_item">
           <a href="">
             <li>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -197,7 +197,7 @@ const Navbar = () => {
           </a>
 
           <a href="">
-            <li class="open_menu_favorite_list_song">
+            <li className="open_menu_favorite_list_song">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
                   fill-rule="evenodd"
@@ -319,7 +319,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div class="navbar_add--playlist">
+      <div className="navbar_add--playlist">
         <a href="">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
@@ -336,7 +336,7 @@ const Navbar = () => {
               fill="#FEFFFF"
             ></path>
           </svg>
-          <span class="title">Tạo playlist mới</span>
+          <span className="title">Tạo playlist mới</span>
         </a>
       </div>
     </nav>
