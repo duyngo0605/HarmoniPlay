@@ -1,0 +1,116 @@
+.search {
+    display: flex;
+    flex: 10;
+    align-items: center;
+    justify-self: center;
+    width: fit-content;
+    height: 45px;
+    padding-left: 16px;
+    margin-right: 32px;
+    border: #dddde3 1px solid;
+    border-radius: 92px;
+
+    input {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.4rem;  // Giảm kích thước font
+        color: #000;
+        border: none;
+        height: 100%;
+        background-color: transparent;
+        outline: none;
+    }
+
+    &:focus-within {
+        border: 1px solid var(--primary);
+    }
+
+    .clear {
+        color: rgba(22, 24, 35, 0.34);
+        width: 25px;
+        height: 50%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #ffffff;
+        }
+
+        &:active {
+            background-color: #8d8d8d;
+        }
+    }
+
+    .search-btn {
+        width: 50px;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        border-radius: 0 18px 18px 0;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #dddde3;
+        }
+
+        &:active {
+            background-color: #acacb0;
+        }
+    }
+
+    .filter-dropdown {
+        margin-left: 10px;
+        padding: 5px 10px;
+        font-size: 1.4rem;  // Giảm kích thước font
+        color: #000;
+        border: 1px solid #dddde3;
+        border-radius: 25px;
+        background-color: transparent;
+        outline: none;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #dddde3;
+        }
+
+        &:active {
+            background-color: #acacb0;
+        }
+    }
+}
+
+.search-result {
+    width: 830px;
+    height: fit-content;
+
+    .search-title {
+        margin-left: 10px;
+        font-size: 1.4rem;  // Giảm kích thước font
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        padding: 6px 16px;
+        cursor: pointer;
+
+        &:hover {
+            background: rgba(22, 24, 35, 0.03);
+            color: #bc0093;
+        }
+
+        .info {
+            flex: 1;
+            margin-left: 12px;
+        }
+
+        .name {
+            font-size: 1.4rem;  // Giảm kích thước font
+            font-weight: 600;
+        }
+    }
+}

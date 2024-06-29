@@ -10,8 +10,8 @@ import { useLocation } from "react-router-dom";
 import "../styles/playlistpage.css";
 import "../styles/chartweek.css";
 
-import MediaForMusic from "../Components/MediaForMusic";
-import PlaylistView from "../Components/PlaylistView";
+import MediaForMusic from "../components/MediaForMusic";
+import PlaylistView from "../components/PlaylistView";
 
 const PlaylistPage = () => {
   const location = useLocation();

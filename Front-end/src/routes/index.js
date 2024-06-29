@@ -3,6 +3,8 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import SignUpPage from "../pages/LoginPage/SignUpPage";
 import ManagementPage from "../pages/AdminPage/ManagementPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
+import ArtistPage from "../pages/ArtistPage/ArtistPage";
+import Player from "../pages/components/Player";
 
 export const routes = [
     {
@@ -24,5 +26,13 @@ export const routes = [
     {
         path: '/profile',
         page: ProfilePage
+    },
+    {
+        path: '/artist/:id',
+        page: ArtistPage
+    },
+    {
+        path: '/player/:id',
+        page: Player
     }
 ]

@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import { IonIcon } from "@ionic/react";
 import {
   heartOutline,
@@ -16,27 +18,62 @@ import {
   listOutline,
   closeOutline,
 } from "ionicons/icons";
-import { useQuery } from "@tanstack/react-query";
 import "../styles/main.css";
 import "../styles/play_navbar.css";
 import "../styles/mph.css";
+import * as TrackService from "../../services/TrackService"
 
-function Player({ id }) {
+const Player = () => {
   const [isPlaying, setIsPlaying] = useState(true);
-  console.log(id);
-  const trackDetail = useQuery({
-    queryKey: ["trackDetailId", id],
-    queryFn: async () => {
-      const response = await fetch(
-        `http://localhost:5000/api/track/get-details/${id}`
-      );
-
-      return response.json();
-    },
-    enabled: !!id,
+  const [stateTrackDetails, setStateTrackDetails] = useState({
+    title: "",
+    artist: [],
+    link: "",
+    image: "",
+    genre: [],
+    releaseDate: "",
+    duration: 0,
   });
 
-  console.log(trackDetail);
+  const {id}= useParams();
+
+  const fetchTrackAll = async () => {
+    try {
+      const res = await TrackService.getAllTrack();
+      console.log("Data fetched all Track:", res);
+      return res;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchGetDetailsTrack = async (id) => {
+    try {
+      alert(id)
+      const res = await TrackService.getDetailsTrack(id);
+      if (res?.data) {
+        setStateTrackDetails({
+          title: res?.data?.title,
+          artist: res?.data?.artist,
+          link: res?.data?.link,
+          image: res?.data?.image,
+          genre: res?.data?.genre,
+          releaseDate: res?.data?.releaseDate,
+          duration: res?.data?.duration,
+        });
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+
+  useEffect(() => {
+    if (id) {
+      fetchGetDetailsTrack(id);
+    }
+  }, [id]);
+
 
   function getTimeCodeFromNum(num) {
     let seconds = parseInt(num);
@@ -57,15 +94,14 @@ function Player({ id }) {
         <a class="play_navbar--link" href="">
           <img
             class="image_of_song"
-            src={console.log(trackDetail?.data?.data?.image)}
+            src={console.log(stateTrackDetails?.data?.data?.image)}
             alt="1"
           />
           <div class="text">
             <span class="name_song name_song--event">
-              {trackDetail?.data?.data?.title}
+              {stateTrackDetails?.data?.data?.title}
             </span>
             <span class="singer-name singer-name--event">
-              {console.log(trackDetail)}
             </span>
           </div>
         </a>
@@ -115,7 +151,7 @@ function Player({ id }) {
                 <div class="progress"></div>
               </div>
               <div class="length">
-                {getTimeCodeFromNum(trackDetail?.data?.data?.duration)}
+                {getTimeCodeFromNum(stateTrackDetails?.data?.data?.duration)}
               </div>
             </div>
           </div>

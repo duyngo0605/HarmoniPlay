@@ -8,6 +8,8 @@ import {
   settingsOutline,
 } from "ionicons/icons";
 
+import Search from "../Search/Search"
+
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -39,12 +41,7 @@ const Header = () => {
           </a>
 
           <div class="search_button">
-            <a href="">
-              <IonIcon icon={searchOutline} class="search_icon"></IonIcon>
-            </a>
-            <div class="input_">
-              <input placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,..." />
-            </div>
+          <Search/>
           </div>
         </div>
 

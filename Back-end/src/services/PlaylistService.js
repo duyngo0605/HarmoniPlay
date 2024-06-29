@@ -95,7 +95,6 @@ const updatePlaylist = async (data, id, updater) => {
 };
 
 const deletePlaylist = async (id, user) => {
-    console.log('debug')
     return new Promise(async (resolve, reject) => {
         try {
 

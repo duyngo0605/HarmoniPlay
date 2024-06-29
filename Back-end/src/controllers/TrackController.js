@@ -84,6 +84,7 @@ const deleteManyTrack = async (req,res) => {
 const getDetailsTrack = async (req,res)=> {
     try {
         const trackId = req.params.id
+        console.log(trackId)
         if (!trackId)
         {
             return res.status(200).json({

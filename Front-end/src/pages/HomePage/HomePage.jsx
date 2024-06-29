@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
 
-import SongView from "../Components/SongView";
 
 import "../styles/main.css";
 import "../styles/banner.css";
@@ -21,9 +20,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllPlaylist } from "../../services/PlaylistService";
 
 import { getAllGenre } from "../../services/GenreService";
-import Slider from "../Components/Slider";
-import Player from "../Components/Player";
-import PlaylistView from "../Components/PlaylistView";
+
+import SongView from "../components/SongView";
+import Slider from "../components/Slider";
+import PlaylistView from "../components/PlaylistView";
 
 const HomePage = () => {
   const [curSongId, setCurSongId] = useState(null);

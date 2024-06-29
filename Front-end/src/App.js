@@ -5,6 +5,8 @@ import { routes } from "./routes/index";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
+import Player from "./pages/components/Player";
+
 export default function App() {
   return (
     <div>
@@ -16,6 +18,7 @@ export default function App() {
           })}
         </Routes>
       </Router>
+      <Player></Player>
     </div>
   );
 }

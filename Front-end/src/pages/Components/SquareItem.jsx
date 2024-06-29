@@ -7,7 +7,7 @@ import { heartOutline, play, ellipsisHorizontalOutline } from "ionicons/icons";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import Player from "./Player";
-import { set } from "mongoose";
+import * as ArtistService from "../../services/ArtistService"
 
 function SquareItem({ track }) {
   const [selectedId, setSelectedId] = useState(null);
@@ -44,7 +44,7 @@ function SquareItem({ track }) {
   }, []);
 
   const fetchArtists = async () => {
-    const response = await fetch("http://localhost:5000/api/artist/get-all");
+    const response = await ArtistService.getAllArtist();
     const data = await response.json();
     return data;
   };
