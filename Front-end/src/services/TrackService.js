@@ -56,3 +56,10 @@ export const deleteTrack = async (id, access_token) => {
   );
   return res.data;
 };
+
+export const recommendTracks = async (id) => {
+  const res = await axiosJWT.post(
+    `${process.env.REACT_APP_API_KEY}/track/recommend/${id}`,
+  );
+  return res.data;
+}

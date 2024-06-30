@@ -1,0 +1,32 @@
+.container {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Tạo 2 cột, cột chính chiếm 3 phần, cột phải chiếm 1 phần */
+    gap: 20px; /* Khoảng cách giữa các cột */
+    margin-top: 5rem;
+  }
+  
+  .left-column {
+    max-width: 900px;
+  }
+
+  .right-column {
+    padding: 20px; /* Khoảng cách bên trong cột phải */
+    margin-right: 3rem;
+  }
+  
+  .track-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: blue;
+  }
+  
+  .track-item img {
+    width: 50px; /* Kích thước hình ảnh của bài hát đề xuất */
+    height: 50px;
+    margin-right: 10px; /* Khoảng cách giữa hình ảnh và tên bài hát */
+  }
+  
+  button {
+    cursor: pointer;
+  }

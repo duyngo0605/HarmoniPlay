@@ -2,8 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import * as ArtistService from "../../services/ArtistService";
 import "../styles/Artist.css"
 import { useNavigate } from "react-router-dom";
+import { IonIcon } from "@ionic/react";
+import {chevronForwardOutline} from "ionicons/icons"
 
 const FavoriteArtists = ({ ids }) => {
+    const [number,setNumber] = useState(5);
+    const handleShowMore = ( ) => {
+        setNumber(number+5);
+      }
     const [artists, setArtists] = useState([]);
 
     const navigate = useNavigate();
@@ -27,8 +33,15 @@ const FavoriteArtists = ({ ids }) => {
     }
 
     return (
-        <div>
-            <h3>Nghệ sĩ đã theo dõi</h3>
+        <div class="topic-item album-hot">
+            <div class="tittle">
+                <span>Nghệ sĩ đang theo dõi</span>
+                <a onClick={handleShowMore}>
+                <span>Thêm</span>
+                <IonIcon icon={chevronForwardOutline}></IonIcon>
+                </a>
+            </div>
+            
             {artists?.map(artist => (
                     <div class="artist-hero" >
                     <div class="hero-body" >
@@ -43,7 +56,7 @@ const FavoriteArtists = ({ ids }) => {
                       </div>
                     </div>
                   </div>
-                ))}
+                )).slice(0,number)}
         </div>
     );
 };

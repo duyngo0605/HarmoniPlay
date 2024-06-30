@@ -100,10 +100,10 @@ const MediaForMusic = ({ id }) => {
           </div>
 
           <h4 class="song-artist">
-            {music?.artist.map((id, index) => (
-              <span key={id}>
+            {music?.artist.map((item, index) => (
+              <span key={item._id}>
                 <a href="" onClick={() => HandleArtistPage(music?.artist)}>
-                  {getArtistNameById(id)}
+                  {getArtistNameById(item._id)}
                 </a>
                 {index < music?.artist?.length - 1 && ", "}
               </span>

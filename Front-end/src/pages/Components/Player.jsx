@@ -7,6 +7,8 @@ import {
   ellipsisHorizontalOutline,
   shuffleOutline,
   playSkipBack,
+  play,
+  pause,
   playCircleOutline,
   pauseCircleOutline,
   playSkipForward,
@@ -90,27 +92,6 @@ const Player = () => {
 
   return (
     <div id="play_navbar">
-      <div class="play_navbar--left">
-        <a class="play_navbar--link" href="">
-          <img
-            class="image_of_song"
-            src={console.log(stateTrackDetails?.data?.data?.image)}
-            alt="1"
-          />
-          <div class="text">
-            <span class="name_song name_song--event">
-              {stateTrackDetails?.data?.data?.title}
-            </span>
-            <span class="singer-name singer-name--event">
-            </span>
-          </div>
-        </a>
-        <div class="items-select">
-          <IonIcon icon={heartOutline}></IonIcon>
-          <IonIcon icon={ellipsisHorizontalOutline}></IonIcon>
-        </div>
-      </div>
-
       <div class="play_navbar--mid">
         <div class="audio_control">
           <button>
@@ -119,17 +100,8 @@ const Player = () => {
           <button>
             <IonIcon icon={playSkipBack}></IonIcon>
           </button>
-          <button id="stop_pause_music">
-            <button id="stop_pause_music">
-              <ion-icon
-                class="music_status--pause"
-                name="play-circle-outline"
-              ></ion-icon>
-              <ion-icon
-                class="music_status--play"
-                name="pause-circle-outline"
-              ></ion-icon>
-            </button>
+          <button>
+            <IonIcon icon={play}></IonIcon>
           </button>
           <button>
             <IonIcon icon={playSkipForward}></IonIcon>
@@ -141,6 +113,18 @@ const Player = () => {
               icon={repeatOutline}
             ></IonIcon>
           </button>
+          <div className="volume-container">
+          <div class="btn_volume_icon">
+            <IonIcon
+              className="volume_medium_Icon"
+              icon={volumeMediumOutline}
+            ></IonIcon>
+          </div>
+          <div className="volume-slider">
+            <div className="volume-percentage"></div>
+          </div>
+          </div>
+          
         </div>
 
         <div class="audio-player">
@@ -151,41 +135,11 @@ const Player = () => {
                 <div class="progress"></div>
               </div>
               <div class="length">
-                {getTimeCodeFromNum(stateTrackDetails?.data?.data?.duration)}
+                {getTimeCodeFromNum(stateTrackDetails?.duration)}
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="play_navbar--right">
-        <div class="text">
-          <span>MV</span>
-        </div>
-
-        <IonIcon icon={micOutline}></IonIcon>
-        <IonIcon icon={openOutline}></IonIcon>
-        <div class="volume_control">
-          <div class="btn_volume_icon">
-            <IonIcon
-              className="volume_medium_Icon"
-              icon={volumeMediumOutline}
-            ></IonIcon>
-            <IonIcon
-              className="volume_mute_Icon"
-              icon={volumeMuteOutline}
-            ></IonIcon>
-          </div>
-          <div className="volume-button">
-            <div className="volume icono-volumeMedium"></div>
-          </div>
-          <div className="volume-slider">
-            <div className="volume-percentage"></div>
-          </div>
-        </div>
-        <div className="bulkhead">|</div>
-        <IonIcon icon={listOutline}></IonIcon>
-        <IonIcon id="close_play_navbar" icon={closeOutline}></IonIcon>
       </div>
     </div>
   );

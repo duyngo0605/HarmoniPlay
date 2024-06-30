@@ -36,7 +36,9 @@ const Search = () => {
     try {
       const res = await TrackService.getAllTrack();
       const allTracks = res.data;
+      console.log('allTracks', allTracks);
       return allTracks; 
+
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error; // Rethrow the error

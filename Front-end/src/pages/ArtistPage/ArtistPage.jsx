@@ -39,6 +39,8 @@ const ArtistPage = () => {
     tracks: []
   });
 
+  const [number,setNumber] = useState(5);
+
   const fetchGetDetailsArtist = async (id) => {
     try {
       const res = await ArtistService.getDetailsArtist(id);
@@ -113,6 +115,14 @@ const ArtistPage = () => {
     setIsFollowing(!isFollowing)}
   }
 
+  const handleShowMore = ( ) => {
+    setNumber(number+5);
+  }
+
+  const handleDetailTrack =(id) => {
+    navigate(`/track/${id}`)
+  }
+
   return (
     <>
       <Navbar />
@@ -156,14 +166,14 @@ const ArtistPage = () => {
                 <div class="colum">
                   <div class="list">
                     {stateArtist?.tracks
-                      ?.map((id) => <MediaForMusic id={id} />)
+                      ?.map((id) => <div onClick={() => handleDetailTrack(id)}><MediaForMusic id={id}  /></div>)
                       .slice(0, 3)}
                   </div>
                 </div>
                 <div class="colum">
                   <div class="list">
                     {stateArtist?.tracks
-                      ?.map((id) => <MediaForMusic id={id} />)
+                      ?.map((id) => <MediaForMusic id={id} onClick={() => handleDetailTrack(id)} />)
                       .slice(3, 6)}
                   </div>
                 </div>
@@ -173,38 +183,20 @@ const ArtistPage = () => {
             <div class="topic-item album-hot">
               <div class="tittle">
                 <span>Single </span>
-                <a href="">
-                  <span>Tất cả</span>
+                <a onClick={handleShowMore}>
+                  <span>Thêm</span>
                   <IonIcon icon={chevronForwardOutline}></IonIcon>
                 </a>
               </div>
+              
 
               <div id="all_item-albumHot" class="main_topic-item">
                 {stateArtist?.tracks
-                  .map((id) => <SquareRender id={id} />)
-                  .slice(0, 5)}
+                  .map((id) => <div onClick={() => {handleDetailTrack(id)}}><SquareRender id={id} /></div> )
+                  .slice(0, number)}
               </div>
             </div>
 
-            <div class="topic-item radio_hot">
-              <div class="tittle">
-                <span>Bạn có thể thích</span>
-              </div>
-
-              <div id="radio_hot_item" class="main_topic-item">
-                <div class="item_circle">
-                  <div class="div_contain-img">
-                    <a href="">
-                      <div class="div-boder-img">
-                        <img src="./assest/img/artist2.jpg" alt="" />
-                        <ion-icon name="play"></ion-icon>
-                      </div>
-                    </a>
-                  </div>
-                  <span class="decrip_item">Chạm</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </main>

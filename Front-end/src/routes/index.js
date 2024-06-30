@@ -6,6 +6,7 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import ArtistPage from "../pages/ArtistPage/ArtistPage";
 import Player from "../pages/components/Player";
 import LibraryPage from "../pages/LibraryPage/LibraryPage"
+import TrackPage from "../pages/TrackPage/TrackPage"
 
 export const routes = [
     {
@@ -39,5 +40,9 @@ export const routes = [
     {
         path: '/library',
         page: LibraryPage
+    },
+    {
+        path: '/track/:id',
+        page: TrackPage
     }
 ]

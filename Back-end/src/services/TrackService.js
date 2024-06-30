@@ -177,12 +177,10 @@ const getDetailsTrack = async (trackId) => {
                 })
             }
 
-            const track = await Track.findById(trackId)
-
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
-                data: track
+                data: checkTrack
             })
             
         }

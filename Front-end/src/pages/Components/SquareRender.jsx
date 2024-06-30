@@ -53,7 +53,7 @@ function SquareRender({ id }) {
         {track?.title}
       </p>
       <a class="singer-name" href="">
-        {track?.releaseDate}
+        {track?.releaseDate.slice(0,4)}
       </a>
       {selectedId && <Player id={selectedId} />}
     </div>

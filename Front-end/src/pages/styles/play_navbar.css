@@ -5,13 +5,11 @@
 }
 
 #play_navbar {
-  position: fixed;
-  bottom: 0;
   z-index: 999;
   width: 100%;
   height: 90px;
   left: 0;
-  background-color: #fff;
+  background-color: purple;
 
   justify-content: space-around;
   align-items: center;
@@ -86,7 +84,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 595px;
+  width: 100%;
 }
 
 .audio_control {
@@ -144,17 +142,16 @@
   background: rgba(255, 255, 255, 0.511);
   width: 485px;
   position: relative;
-  cursor: text;
+  cursor: pointer;
   box-shadow: 0 2px 10px 0 #0008;
   margin: auto 10px;
   border-radius: 3px;
 }
 
 .audio-player .timeline .progress {
-  background: purple;
+  background: white;
   border-radius: 3px;
   height: 5px;
-  transition: 0.2s;
 }
 
 .audio-player .controls {
@@ -189,8 +186,7 @@
 .btn_volume_icon {
   margin-right: 10px;
   display: flex;
-  align-items: center;
-  align-items: center;
+  align-items: flex-end;
   color: black;
 }
 
@@ -205,6 +201,10 @@
 }
 
 .volume-container {
+  position: sticky;
+  right: 0px;
+  display: flex;
+  flex-direction: row;
   cursor: text;
 }
 
@@ -215,10 +215,12 @@
 }
 
 .volume-slider {
-  width: 0;
-  height: 5px;
-  background: purple;
-  transition: 0.25s;
+  input {
+    margin: auto;
+    height: 5px;
+    color: purple;
+    width: 100px;
+  }
 }
 
 .volume-slider {
@@ -240,7 +242,7 @@
 .play_navbar--right {
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: right;
 
   color: black;
   font-size: 18px;
