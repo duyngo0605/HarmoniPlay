@@ -18,7 +18,7 @@
     "express": "^4.19.2",
     "jpickle": "^0.4.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.2.4",
+    "mongoose": "^8.4.4",
     "multer": "^1.4.5-lts.1",
     "natural": "^7.0.6",
     "node-pickle": "^0.0.2",

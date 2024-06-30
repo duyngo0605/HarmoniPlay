@@ -14,7 +14,8 @@ const userSchema = new Schema({
     tracks: [{ type: Schema.Types.ObjectId, ref: 'Track' }],
     playlists: [{ type: Schema.Types.ObjectId, ref: 'Playlist' }],
     artists: [{ type: Schema.Types.ObjectId, ref: 'Artist' }]
-  }
+  },
+  history: [{ type: Schema.Types.ObjectId, ref: 'Track' }]
 });
 
 const User = mongoose.model('User', userSchema);

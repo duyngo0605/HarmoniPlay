@@ -53,6 +53,9 @@ const TrackPage = () => {
     const fetchGetDetailsTrack = async (id) => {
       try {
         const res = await TrackService.getDetailsTrack(id);
+        await UserService.updateUser(decoded?.id, token, {
+          addTrackToHistory: id
+        })
         console.log('res', res)
         if (res?.data) {
           setStateTrack(res.data);
@@ -80,18 +83,20 @@ const TrackPage = () => {
           fetchGetDetailsTrack(id);
       }
       fetchSuggestedTracks();
+      
     }, [id]);
   
     useEffect(() => {
       const checkIfLiked = async () => {
         try {
-  
+          
           const res = await UserService.getDetailsUser(decoded?.id, token);
           if (res?.status === 'OK' && res?.data) {
             const user = res.data;
             const likedTrack = user.favorites.tracks.includes(id);
-  
+            
             setIsLiked(likedTrack);
+
           } else {
             console.error('Error fetching user details:', res.message);
           }
@@ -174,7 +179,7 @@ const TrackPage = () => {
                     </div>
                 </div>
                 </div>
-                <MediaPlayer link={stateTrack.link} duration={stateTrack.duration}/>
+                <MediaPlayer link={stateTrack.link} duration={stateTrack.duration} />
                 <br></br>
                 <h2>Danh sách nghệ sĩ</h2>
                 {stateTrack?.artist.map(item => (

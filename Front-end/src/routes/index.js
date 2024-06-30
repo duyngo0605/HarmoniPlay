@@ -7,6 +7,7 @@ import ArtistPage from "../pages/ArtistPage/ArtistPage";
 import Player from "../pages/components/Player";
 import LibraryPage from "../pages/LibraryPage/LibraryPage"
 import TrackPage from "../pages/TrackPage/TrackPage"
+import HistoryPage from "../pages/HistoryPage/History"
 
 export const routes = [
     {
@@ -38,8 +39,8 @@ export const routes = [
         page: Player
     },
     {
-        path: '/library',
-        page: LibraryPage
+        path: '/history',
+        page: HistoryPage
     },
     {
         path: '/track/:id',

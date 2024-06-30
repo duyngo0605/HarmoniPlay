@@ -112,7 +112,19 @@ const updateUser = async (userId, data) => {
                 const hash = bcrypt.hashSync(data.password, 10);
                 data.password = hash;
             }
-
+            if (data.addTrackToHistory)
+            {
+                await User.findByIdAndUpdate(
+                    userId,
+                    { $pull: { 'history': data.addTrackToHistory } },
+                    { new: true }
+                );
+                await User.findByIdAndUpdate(
+                    userId,
+                    { $push: { 'history': data.addTrackToHistory } },
+                    { new: true }
+                );
+            }
             // Check if we need to add an artist to favorites
             if (data.addArtistToFavorites) {
                 await User.findByIdAndUpdate(
