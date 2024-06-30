@@ -58,7 +58,6 @@ const recommendTracks = (trackId) => {
             }
 
             recommendedTracks.sort((a, b) => b.similarity - a.similarity);
-            console.log(tfidf)
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',

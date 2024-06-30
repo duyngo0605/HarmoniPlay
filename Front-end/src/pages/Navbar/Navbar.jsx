@@ -80,6 +80,7 @@ const Navbar = () => {
           </li>
         </a>
 
+        {token ? (
         <a href="" onClick={handleLibrary}>
           <li>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -93,7 +94,7 @@ const Navbar = () => {
             <span>Thư viện</span>
             <ion-icon name="caret-forward-circle-outline"></ion-icon>
           </li>
-        </a>
+        </a>) : (<></>)}
       </ul>
 
       <div className="navbar_scroll">

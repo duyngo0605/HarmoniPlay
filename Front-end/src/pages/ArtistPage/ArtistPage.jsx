@@ -36,6 +36,7 @@ const ArtistPage = () => {
     image: "",
     country: "",
     description: "",
+    follower: 0,
     tracks: []
   });
 
@@ -51,7 +52,8 @@ const ArtistPage = () => {
           image: res?.data?.image,
           country: res?.data?.country,
           description: res?.data?.description,
-          tracks: res?.data?.tracks
+          tracks: res?.data?.tracks,
+          follower: res?.data?.follower
         });
       }
     } catch (error) {
@@ -98,6 +100,9 @@ const ArtistPage = () => {
       const res = await UserService.updateUser(decoded?.id, token, {
         addArtistToFavorites: id
       })
+      await ArtistService.updateArtist(id, token, {
+        isFollowed: true
+      })
       if (res?.status === 'OK')
         {
           alert("Đã thêm nghệ sĩ vào mục yêu thích!")
@@ -107,9 +112,12 @@ const ArtistPage = () => {
       const res = await UserService.updateUser(decoded?.id, token, {
         removeArtistFromFavorites: id
       })
+      await ArtistService.updateArtist(id, token, {
+        isUnFollowed: true
+      })
       if (res?.status === 'OK')
         {
-          alert("Đã xóa nghệ sĩ khỏi mục yêu thích!")``
+          alert("Đã xóa nghệ sĩ khỏi mục yêu thích!")
         }
     }
     setIsFollowing(!isFollowing)}
@@ -144,9 +152,13 @@ const ArtistPage = () => {
                     ></ion-icon>
                   </div>
                   <div class="bottom">
-                    <span class="follower"></span>
+
                     <button class="follow-btn" onClick={handleFollow}>{isFollowing ? ('Hủy theo dõi') : ('Theo dõi')}</button>
                   </div>
+                  <div class="follower">
+                  <span >{stateArtist.follower + ' Người theo dõi'}</span>
+                  </div>
+ 
                 </div>
               </div>
             </div>

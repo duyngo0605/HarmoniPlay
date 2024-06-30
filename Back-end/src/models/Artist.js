@@ -6,6 +6,7 @@ const artistSchema = new Schema({
   image: String,
   country: String,
   description: String,
+  follower: {type: Number, default: 0},
   tracks: [{ type: Schema.Types.ObjectId, ref: 'Track' }]
 });
 

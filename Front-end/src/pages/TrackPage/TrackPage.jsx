@@ -44,6 +44,8 @@ const TrackPage = () => {
       link: "",
       duration: 0,
       releaseDate: "",
+      plays: 0,
+      likes: 0,
       genre: [],
       artist: []
     });
@@ -55,6 +57,9 @@ const TrackPage = () => {
         const res = await TrackService.getDetailsTrack(id);
         await UserService.updateUser(decoded?.id, token, {
           addTrackToHistory: id
+        })
+        TrackService.updateTrack(id, token, {
+          play: true
         })
         console.log('res', res)
         if (res?.data) {
@@ -120,6 +125,9 @@ const TrackPage = () => {
         const res = await UserService.updateUser(decoded?.id, token, {
           addTrackToFavorites: id
         })
+        await TrackService.updateTrack(id, token, {
+          like: true
+        })
         if (res?.status === 'OK')
           {
             alert("Đã thêm bài hát vào mục yêu thích!")
@@ -128,6 +136,9 @@ const TrackPage = () => {
       else{
         const res = await UserService.updateUser(decoded?.id, token, {
           removeTrackFromFavorites: id
+        })
+        await TrackService.updateTrack(id, token, {
+          unlike: true
         })
         if (res?.status === 'OK')
           {
@@ -153,28 +164,30 @@ const TrackPage = () => {
           <div className={cx("container")}>
                 <div className={cx("left-column")}>
                 <div class="artist-hero">
-                <div class="hero-body">
-                    <div class="left">
-                    <figure class="avatar">
-                        <img src={stateTrack?.image} />
-                    </figure>
-                    <div class="information">
-                        <div class="top">
+                  <div class="hero-body">
+                      <div class="left">
+                        <figure class="avatar">
+                            <img src={stateTrack?.image} />
+                        </figure>
+                      <div class="information">
+                      <div class="top">
                         <h3 class="artist-name" style={{maxWidth: '500'}}>{stateTrack?.title}</h3>
-                        <ion-icon
-                            class="music_status--pause"
-                            name="play-circle-outline"
-                        ></ion-icon>
                         </div>
                         <div class="list">
                         <span>
                           {stateTrack?.genre.map((item) =>  <p key={item._id}>{item.name + "    "}</p>)}
                         </span>
-                        </div>
-    
-                        <div class="bottom">
+                      </div>
+      
+                      <div class="bottom">
                         <button class="follow-btn" onClick={handleFollow}>{isLiked ? ('Hủy thích') : ('Thích')}</button>
-                        </div>
+                      </div>
+                      <div class="follower">
+                        <span>{stateTrack.plays} lượt nghe</span>
+                      </div>
+                      <div class="follower">
+                        <span>{stateTrack.likes} người thích</span>
+                      </div>
                     </div>
                     </div>
                 </div>

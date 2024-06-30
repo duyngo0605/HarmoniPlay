@@ -33,6 +33,14 @@ export const createTrack = async (data, access_token) => {
 };
 
 export const updateTrack = async (id, access_token, data) => {
+  if (data.play || data.like || data.unlike) {
+    const res = await axiosJWT.post(
+      `${process.env.REACT_APP_API_KEY}/track/update-plays-likes/${id}`,
+      data
+    );
+    return res.data;
+  }
+  else {
   const res = await axiosJWT.post(
     `${process.env.REACT_APP_API_KEY}/track/update/${id}`,
     data,
@@ -42,7 +50,7 @@ export const updateTrack = async (id, access_token, data) => {
       },
     }
   );
-  return res.data;
+  return res.data;}
 };
 
 export const deleteTrack = async (id, access_token) => {

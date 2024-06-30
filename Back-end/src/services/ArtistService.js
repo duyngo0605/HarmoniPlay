@@ -29,20 +29,31 @@ const createArtist = async (newArtist) => {
 }
 
 const updateArtist = async (artistId, data) => {
-    console.log('update artist')
     console.log(artistId, data)
     return new Promise(async (resolve, reject) => {
         try {
             const checkArtist = await Artist.findOne({
                 _id: artistId
             })
+            var follower = checkArtist.follower;
+            if (data?.isFollowed == true)
+            {
+                follower++;
+            }
+            else if (data?.isUnFollowed == true){
+                follower--;
+            }
             if (!checkArtist){
                 resolve({
                     status: 'OK',
                     message: 'The artist is not defined.'
                 })
             }
-            const updatedArtist = await Artist.findByIdAndUpdate(artistId, data, {new: true})
+            const updatedArtist = await Artist.findByIdAndUpdate(artistId, 
+                {
+                    ...data,
+                    follower: follower
+                }, {new: true})
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',

@@ -70,8 +70,21 @@ const updateTrack = async (trackId, data) => {
                     message: 'Track not found'
                 })
             }
-
- 
+            var currPlay = checkTrack.plays;
+            var currLike = checkTrack.likes;
+            if(data?.play == true)
+            {
+                currPlay++;
+            }
+            if(data?.like == true)
+            {
+                currLike++;
+            }
+            else if (data?.unlike == true)
+            {
+                if (currLike > 0)
+                    currLike--;
+            }
 
             if (data.artist)
             {
@@ -89,10 +102,12 @@ const updateTrack = async (trackId, data) => {
             
             const updatedTrack = await Track.findByIdAndUpdate(trackId, {
                 ...data,
+                plays: currPlay,
+                likes: currLike,
                 artist: data.artist,
                 genre: data.genre,
             }, {new: true})
-            console.log(data)
+            console.log(updatedTrack)
 
             resolve({
                 status: 'OK',

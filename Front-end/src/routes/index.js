@@ -43,6 +43,10 @@ export const routes = [
         page: HistoryPage
     },
     {
+        path: '/library',
+        page: LibraryPage
+    },
+    {
         path: '/track/:id',
         page: TrackPage
     }

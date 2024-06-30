@@ -25,6 +25,15 @@ export const createArtist = async (data, access_token) => {
 };
 
 export const updateArtist = async (id, access_token, data) => {
+  if (data.isFollowed || data.isUnFollowed)
+  {
+    const res = await axiosJWT.post(
+      `${process.env.REACT_APP_API_KEY}/artist/update-follower/${id}`,
+      data
+    );
+    return res.data;
+  }
+  else {
   const res = await axiosJWT.post(
     `${process.env.REACT_APP_API_KEY}/artist/update/${id}`,
     data,
@@ -34,7 +43,7 @@ export const updateArtist = async (id, access_token, data) => {
       },
     }
   );
-  return res.data;
+  return res.data;}
 };
 
 export const getDetailsArtist = async (id) => {

@@ -9,7 +9,9 @@ const trackSchema = new Schema(
     image: {type: String, required: true},
     genre: [{type: Schema.Types.ObjectId, ref: 'Genre'}],
     releaseDate: Date,
-    duration: Number
+    duration: Number,
+    likes: {type: Number, default: 0},
+    plays: {type: Number, default: 0},
   },
   {
     timestamps: true,

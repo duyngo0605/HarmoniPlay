@@ -60,12 +60,13 @@
 .artist-hero .hero-body .left .information .bottom {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 14x;
   font-weight: 500;
 }
 
 .artist-hero .hero-body .left .information .follower {
   margin-right: 24px;
+  font-size: 1.4rem;
 }
 
 .artist-hero .hero-body .left .information .follow-btn {
