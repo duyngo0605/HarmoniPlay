@@ -76,6 +76,12 @@
   height: 28px;
   padding: 4px 24px;
   font-size: 12px;
+  cursor: pointer;
+}
+
+.artist-hero .hero-body .left .information .follow-btn:hover {
+  background: purple;
+  color: white;
 }
 
 .colums {

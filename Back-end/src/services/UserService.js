@@ -112,6 +112,43 @@ const updateUser = async (userId, data) => {
                 const hash = bcrypt.hashSync(data.password, 10);
                 data.password = hash;
             }
+
+            // Check if we need to add an artist to favorites
+            if (data.addArtistToFavorites) {
+                await User.findByIdAndUpdate(
+                    userId,
+                    { $push: { 'favorites.artists': data.addArtistToFavorites } },
+                    { new: true }
+                );
+            }
+
+            // Check if we need to remove an artist from favorites
+            if (data.removeArtistFromFavorites) {
+                await User.findByIdAndUpdate(
+                    userId,
+                    { $pull: { 'favorites.artists': data.removeArtistFromFavorites } },
+                    { new: true }
+                );
+            }
+
+            // Check if we need to add an track to favorites
+            if (data.addTrackToFavorites) {
+                await User.findByIdAndUpdate(
+                    userId,
+                    { $push: { 'favorites.tracks': data.addTrackToFavorites } },
+                    { new: true }
+                );
+            }
+
+            // Check if we need to remove an track from favorites
+            if (data.removeTrackFromFavorites) {
+                await User.findByIdAndUpdate(
+                    userId,
+                    { $pull: { 'favorites.tracks': data.removeTrackFromFavorites } },
+                    { new: true }
+                );
+            }
+
             const updatedUser = await User.findByIdAndUpdate(userId, data, {new: true})
             console.log('updatedUser', updatedUser);
             resolve({

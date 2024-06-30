@@ -18,7 +18,6 @@ export default function App() {
           })}
         </Routes>
       </Router>
-      <Player></Player>
     </div>
   );
 }

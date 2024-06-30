@@ -15,10 +15,21 @@ import MediaForMusic from "../components/MediaForMusic";
 import SquareItem from "../components/SquareItem";
 import SquareRender from "../components/SquareRender";
 
+import { jwtDecode } from "jwt-decode";
 import * as ArtistService from "../../services/ArtistService"
+import * as UserService from "../../services/UserService"
 
 const ArtistPage = () => {
   const { id } = useParams();
+  const[isFollowing, setIsFollowing] = useState(false);
+
+  const navigate = useNavigate()
+
+  const token = JSON.parse(localStorage.getItem("access_token"))
+
+  let decoded;
+  if(token){ 
+    decoded = jwtDecode(token)}
   
   const [stateArtist, setStateArtist] = useState({
     name: "",
@@ -52,9 +63,54 @@ const ArtistPage = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    const checkIfFollowing = async () => {
+      try {
 
-  const handleFollow = () => {
+        const res = await UserService.getDetailsUser(decoded?.id, token);
+        if (res?.status === 'OK' && res?.data) {
+          const user = res.data;
+          const isFollowingArtist = user.favorites.artists.includes(id);
 
+          setIsFollowing(isFollowingArtist);
+        } else {
+          console.error('Error fetching user details:', res.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+
+    checkIfFollowing();
+  }, [id, isFollowing]);
+
+
+  const handleFollow = async () => {
+    if(!token)
+    {
+      navigate('/login')
+    }
+    else {
+    if(!isFollowing)
+    {
+      const res = await UserService.updateUser(decoded?.id, token, {
+        addArtistToFavorites: id
+      })
+      if (res?.status === 'OK')
+        {
+          alert("Đã thêm nghệ sĩ vào mục yêu thích!")
+        }
+    }
+    else{
+      const res = await UserService.updateUser(decoded?.id, token, {
+        removeArtistFromFavorites: id
+      })
+      if (res?.status === 'OK')
+        {
+          alert("Đã xóa nghệ sĩ khỏi mục yêu thích!")``
+        }
+    }
+    setIsFollowing(!isFollowing)}
   }
 
   return (
@@ -79,7 +135,7 @@ const ArtistPage = () => {
                   </div>
                   <div class="bottom">
                     <span class="follower"></span>
-                    <button class="follow-btn" onClick={handleFollow}>QUAN TÂM</button>
+                    <button class="follow-btn" onClick={handleFollow}>{isFollowing ? ('Hủy theo dõi') : ('Theo dõi')}</button>
                   </div>
                 </div>
               </div>

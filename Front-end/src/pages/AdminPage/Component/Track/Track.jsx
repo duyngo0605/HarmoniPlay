@@ -561,6 +561,15 @@ const Track = () => {
                   ))}
                 </select>
           </div>
+          <div className={cx("modal-input")}>
+            <p>Duration:</p>
+            <input
+              type="text"
+              value={stateTrack.duration}
+              onChange={handleOnChange}
+              name="duration"
+            />
+          </div>
           
         </div>
       </Modal>
@@ -675,7 +684,15 @@ const Track = () => {
                   ))}
                 </select>
           </div>
-          
+          <div className={cx("modal-input")}>
+            <p>Duration:</p>
+            <input
+              type="text"
+              value={stateTrackDetails.duration}
+              onChange={handleOnChange}
+              name="duration"
+            />
+          </div>
       </Modal>
     </div>
 

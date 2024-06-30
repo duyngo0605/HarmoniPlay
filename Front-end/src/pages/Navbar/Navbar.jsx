@@ -7,15 +7,21 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
 
   const navigate = useNavigate();
+
+  const token = JSON.parse(localStorage.getItem("access_token"))
   
   const handleLogin = () => {
     navigate("/login")
   }
 
+  const handleHome = () => {
+    navigate('/')
+  }
+
   return (
     <nav className="nav">
       <div className="app_logo">
-        <a href="">
+        <a onClick={handleHome}>
           <img className="logo" src={logo} alt="logo" />
         </a>
       </div>
@@ -165,13 +171,12 @@ const Navbar = () => {
             </li>
           </a>
         </ul>
-
-        <div className="advertise">
-          <span>Đăng nhập để khám phá playlist cho riêng mình</span>
-          <a href="" onClick={handleLogin}>ĐĂNG NHẬP</a>
-        </div>
-
-        <ul className="navbar_item">
+        {token ? 
+        (
+          <div>
+             
+          
+            <ul className="navbar_item">
           <a href="">
             <li>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -326,6 +331,16 @@ const Navbar = () => {
             </li>
           </a>
         </ul>
+          </div>
+        
+               
+        ) : ( <div className="advertise">
+          <span>Đăng nhập để khám phá playlist cho riêng mình</span>
+          <a href="" onClick={handleLogin}>ĐĂNG NHẬP</a>
+        </div>)}
+ 
+
+        
       </div>
 
       <div className="navbar_add--playlist">

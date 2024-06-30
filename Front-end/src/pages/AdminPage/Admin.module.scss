@@ -16,3 +16,21 @@
     height: 100%;
     margin: 20px 60px 20px 20px;
 }
+
+.app_logo {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    height: 70px;
+    position: fixed;
+    left: 0;
+    z-index: 100;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  
+  .app_logo .logo {
+    width: 200px;
+    margin-left: 20px;
+  }

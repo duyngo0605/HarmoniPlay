@@ -3,12 +3,14 @@ import Header from "../Header/Header";
 import { getItem } from "../../utils";
 import { Menu } from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import logo from "../assest/image 22.png";
 
 import User from "./Component/User/User";
 import Genre from "./Component/Genre/Genre";
 import Artist from "./Component/Artist/Artist";
 import Track from "./Component/Track/Track";
 import Playlist from "./Component/Playlist/Playlist";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Admin.module.scss";
 import classNames from "classnames/bind";
@@ -18,6 +20,12 @@ const cx = classNames.bind(styles);
 
 const ManagementPage = () => {
   const [keySelected, setKeySelected] = useState("");
+
+  const navigate = useNavigate()
+
+  const handleHome = () => {
+    navigate("/")
+  }
   const items = [
     getItem(
       "Người dùng",
@@ -69,6 +77,13 @@ const ManagementPage = () => {
   };
 
   return (
+    <main>
+    <div className={cx("app_logo")}>
+      <a onClick={handleHome}>
+      <img className={cx("logo")} src={logo} alt="logo" />
+      </a>
+    </div>
+    <Header/>
     <div className={cx("container")}>
       <div>
         <Menu
@@ -86,6 +101,7 @@ const ManagementPage = () => {
       </div>
       <div className={cx("content")}>{renderPage(keySelected)}</div>
     </div>
+    </main>
   );
 }
 

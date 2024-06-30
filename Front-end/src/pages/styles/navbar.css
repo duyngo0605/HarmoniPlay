@@ -29,6 +29,7 @@ nav {
   align-items: center;
   justify-self: center;
   height: 70px;
+  cursor: pointer;
 }
 
 .app_logo .logo {
