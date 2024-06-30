@@ -15,8 +15,11 @@ const loadTFIDFModel = async () => {
         const artists = track.artist.map(artist => artist.name);
         const countries = track.artist.map(artist=>artist.country);
         const combinedText = `${title} ${genres.join(' ')} ${artists.join(' ')} ${countries.join(' ')}`;
+        const documment = combinedText.toLowerCase()
+        .replace(/^\w\s/, ' ')
+        .replace(/\n/g, ' ')
 
-        tfidf.addDocument(combinedText);
+        tfidf.addDocument(documment);
     });
 };
 // Load mô hình TF-IDF
@@ -40,8 +43,11 @@ const recommendTracks = (trackId) => {
             const genres = checkTrack.genre.map(genre => genre.name);
             const artists = checkTrack.artist.map(artist => artist.name);
             const countries = checkTrack.artist.map(artist=>artist.country);
-            const query = `${title} ${genres.join(' ')} ${artists.join(' ')} ${countries.join(' ')}`;
-            const similarity = tfidf.tfidfs(query);
+            const query = `${title} ${genres.join(' ')} ${artists.join(' ')} ${countries.join(' ')}`
+            const documment = query.toLowerCase()
+            .replace(/^\w\s/, ' ')
+            .replace(/\n/g, ' ')
+            const similarity = tfidf.tfidfs(documment);
 
             const recommendedTracks = [];
 
