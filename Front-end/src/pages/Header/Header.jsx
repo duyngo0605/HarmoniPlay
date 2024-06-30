@@ -35,7 +35,6 @@ const Header = () => {
   };
 
   const handleLogout = async () => {
-    if (location.pathname == "/profile" || location.pathname == "/admin")
       navigate("/")
     const res = await logoutUser();
     if(res?.status === "OK")
@@ -86,9 +85,10 @@ const Header = () => {
            
           ) : (          
           <div class="setting">
-            <a class="sign_up_btn" onClick={handleAdmin} href="">
+           {decoded?.isAdmin ?
+           (<a class="sign_up_btn" onClick={handleAdmin} href="">
                 Quản lý Admin
-            </a>
+            </a>) :(<></>)}
             <a class="sign_in_btn" onClick={handleLogout} href="">
                 Đăng xuất
               </a>

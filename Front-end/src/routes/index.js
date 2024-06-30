@@ -5,6 +5,7 @@ import ManagementPage from "../pages/AdminPage/ManagementPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import ArtistPage from "../pages/ArtistPage/ArtistPage";
 import Player from "../pages/components/Player";
+import LibraryPage from "../pages/LibraryPage/LibraryPage"
 
 export const routes = [
     {
@@ -34,5 +35,9 @@ export const routes = [
     {
         path: '/player/:id',
         page: Player
+    },
+    {
+        path: '/library',
+        page: LibraryPage
     }
 ]

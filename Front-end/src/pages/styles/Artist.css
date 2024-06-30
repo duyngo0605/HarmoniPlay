@@ -1,7 +1,6 @@
 .artist-hero {
   position: relative;
-  margin: -70px 0 30px;
-  padding-top: 135px;
+  margin: 20px 0 30px;
   display: flex;
   align-items: flex-end;
 }
@@ -91,4 +90,8 @@
 
 .colum {
   width: 50%;
+}
+
+figcaption {
+  text-align: center;
 }

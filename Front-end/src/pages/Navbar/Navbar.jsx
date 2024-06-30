@@ -17,6 +17,9 @@ const Navbar = () => {
   const handleHome = () => {
     navigate('/')
   }
+  const handleLibrary =() => {
+    navigate('/library')
+  }
 
   return (
     <nav className="nav">
@@ -73,7 +76,7 @@ const Navbar = () => {
           </li>
         </a>
 
-        <a href="">
+        <a href="" onClick={handleLibrary}>
           <li>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path
